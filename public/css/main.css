@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 *{
     margin: 0;
     padding: 0;
@@ -7,4 +8,23 @@ a{
     text-decoration: none;
     outline: none;
     color: black;
+}
+input {
+    outline: none;
+    
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    font-family: "Open Sans", serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    background: url(../media/bg.jpg) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }

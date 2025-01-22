@@ -12,10 +12,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
-
-<form method="post">
+<div class="login_form">
+    <img src="./media/logo.png" alt="" style="width:200px">
+    <form method="post">
     <input type="text" name="login" placeholder="Login" required>
     <input type="password" name="haslo" placeholder="Hasło" required>
     <button type="submit">Zaloguj się</button>
-</form>
-<p>Nie masz konta? <a href="register.php">Zarejestruj się</a></p>
+    </form>
+    <p>Nie masz konta? <a href="register.php"><u>Zarejestruj się</u></a></p>
+</div>
+
