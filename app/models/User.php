@@ -44,5 +44,16 @@ class User {
         $stmt->execute([$login]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getTasksForUser($pracownik_id) {
+        $stmt = $this->pdo->prepare("
+            SELECT z.*
+            FROM zadania z
+            JOIN pracownik_zadanie pz ON z.id = pz.zadanie_id
+            WHERE pz.pracownik_id = ?
+        ");
+        $stmt->execute([$pracownik_id]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>

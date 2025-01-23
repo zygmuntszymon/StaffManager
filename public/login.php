@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 <div class="login_form">
-    <img src="./media/logo.png" alt="" style="width:200px">
+    <img src="./media/logo.png" alt="" style="width:150px">
     <form method="post">
     <input type="text" name="login" placeholder="Login" required>
     <input type="password" name="haslo" placeholder="Hasło" required>

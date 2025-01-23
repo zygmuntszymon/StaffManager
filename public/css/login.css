@@ -1,6 +1,7 @@
 .login_form{
-    height: 300px;
-    width: 280px;
+    height: max-content;
+    padding: 20px 20px;
+    width: 300px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -23,15 +24,26 @@
     width: 220px;
 }
 
+.login_form > form > select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #1D1E2C;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
 .login_form > form > input{
     width: 220px;
     height: 40px;
     padding: 6px;
 }
-
+.login_form > form > * {
+    margin: 0.7rem;
+}
 .login_form > form > input, .login_form > form > button {
     font-size: 16px;
-    margin: 0.7rem;
 }
 
 .login_form > form > button {
@@ -42,4 +54,9 @@
     outline: none;
     border: none;
     border-radius: 2px;
+    cursor: pointer;
+}
+
+.login_form > form > button:hover{
+    background-color: #393b58;
 }
