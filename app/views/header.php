@@ -19,6 +19,7 @@ if (Session::isLoggedIn()) {
     <link rel="stylesheet" href="../public/css/login.css">
     <link rel="stylesheet" href="../public/css/pracownik.css">
     <link rel="stylesheet" href="../public/css/pracodawca.css">
+    <link rel="stylesheet" href="../public/css/nagrody.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>StaffManager</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -60,7 +61,7 @@ if (Session::isLoggedIn()) {
                 <div class="header_menu">
                     <?php
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') { ?>
-                        <a href="" class="">Zadania</a>
+                        <a href="dashboard_pracownik.php" class="">Zadania</a>
                         <a href="nagrody.php" class="">Nagrody</a>
                         <a href="">Wnioski</a>
                         <div id="header_points">

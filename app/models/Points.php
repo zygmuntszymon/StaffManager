@@ -29,5 +29,9 @@ class Points {
         $stmt = $this->pdo->prepare('UPDATE pracownicy SET punkty = punkty + :increment WHERE id = :user_id');
         return $stmt->execute(['increment' => $increment, 'user_id' => $userId]);
     }
+    public function decrementUserPoints($userId, $decrement) {
+        $stmt = $this->pdo->prepare('UPDATE pracownicy SET punkty = punkty - :decrement WHERE id = :user_id');
+        return $stmt->execute(['decrement' => $decrement, 'user_id' => $userId]);
+    }
 }
 ?>
