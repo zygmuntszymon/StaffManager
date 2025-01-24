@@ -55,5 +55,11 @@ class User {
         $stmt->execute([$pracownik_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getAllUsers()
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM pracownicy ORDER BY nazwisko, imie, rola");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 ?>
