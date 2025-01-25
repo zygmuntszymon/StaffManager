@@ -61,5 +61,26 @@ class User {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function getBonus($user_id) {
+        $stmt = $this->pdo->prepare("SELECT COALESCE(wartosc, 0) as bonus FROM premie WHERE pracownik_id = ?");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['bonus'];
+    }
+
+    public function addBonus($user_id, $amount) {
+        $stmt = $this->pdo->prepare("UPDATE premie SET wartosc = wartosc + ? WHERE pracownik_id = ?");
+        $stmt->execute([$amount, $user_id]);
+    
+        // Jeśli żadna premia nie została zaktualizowana, wstaw nową
+        if ($stmt->rowCount() === 0) {
+            $stmt = $this->pdo->prepare("INSERT INTO premie (pracownik_id, wartosc) VALUES (?, ?)");
+            $stmt->execute([$user_id, $amount]);
+        }
+    }
+
+    public function resetBonus() {
+        $stmt = $this->pdo->prepare("UPDATE premie SET wartosc = 0");
+        return $stmt->execute();
+    }
 }
 ?>
