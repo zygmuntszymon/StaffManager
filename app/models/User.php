@@ -82,5 +82,33 @@ class User {
         $stmt = $this->pdo->prepare("UPDATE premie SET wartosc = 0");
         return $stmt->execute();
     }
+
+    public function getDaysOff($user_id) {
+        $stmt = $this->pdo->prepare("SELECT COALESCE(ilosc, 0) as days_off FROM dodatkowe_dni_wolne WHERE pracownik_id = ?");
+        $stmt->execute([$user_id]);
+        return $stmt->fetch(PDO::FETCH_ASSOC)['days_off'];
+    }
+
+    public function addDaysOff($user_id, $days = 1) {
+        // Sprawdzamy, czy pracownik ma już rekord w tabeli 'dodatkowe_dni_wolne'
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) FROM dodatkowe_dni_wolne WHERE pracownik_id = ?");
+        $stmt->execute([$user_id]);
+        $count = $stmt->fetchColumn();
+    
+        if ($count > 0) {
+            // Jeśli rekord istnieje, aktualizujemy liczbę dni wolnych
+            $stmt = $this->pdo->prepare("UPDATE dodatkowe_dni_wolne SET ilosc = ilosc + ? WHERE pracownik_id = ?");
+            $stmt->execute([$days, $user_id]);
+        } else {
+            // Jeśli rekord nie istnieje, tworzymy nowy
+            $stmt = $this->pdo->prepare("INSERT INTO dodatkowe_dni_wolne (pracownik_id, ilosc) VALUES (?, ?)");
+            $stmt->execute([$user_id, $days]);
+        }
+    }
+
+    public function resetDaysOff() {
+        $stmt = $this->pdo->prepare("UPDATE dodatkowe_dni_wolne SET ilosc = 0");
+        return $stmt->execute();
+    }
 }
 ?>

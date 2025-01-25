@@ -61,9 +61,9 @@ if (Session::isLoggedIn()) {
                 <div class="header_menu">
                     <?php
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') { ?>
-                        <a href="dashboard_pracownik.php" class="">Zadania</a>
-                        <a href="nagrody.php" class="">Nagrody</a>
-                        <a href="">Wnioski</a>
+                        <a href="dashboard_pracownik.php" class="header_link"><i class="fa-solid fa-list-check"></i> Zadania</a>
+                        <a href="nagrody.php" class="header_link"> <i class="fa-solid fa-trophy"></i> Nagrody</a>
+                        <a href="" class="header_link"> <i class="fa-solid fa-file"></i> Wnioski</a>
                         <div id="header_points">
                             <i class="fa-solid fa-coins"></i> &nbsp;<span id="user-points"> <?php echo $_SESSION['punkty']; ?></span>
                         </div>
