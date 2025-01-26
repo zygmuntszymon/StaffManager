@@ -33,15 +33,14 @@
     flex-direction: row;
 }
 .header_menu > * {
-    margin: 0.5rem;
+    margin: 0.7rem;
 }
 #btn_logout{
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 16px;
-    width: 120px;
-    height: 40px;
+    font-size: 14px;
+    padding: 16px 20px;
     background-color: #1D1E2C;
     color: white;
     outline: none;
@@ -51,4 +50,26 @@
 }
 #btn_logout:hover{
     background-color: #393b58;
+}
+#header_points{
+    padding: 10px 15px;
+    background-color: rgba(255, 217, 0, 0.15);
+    font-weight: bold;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#header_points * {
+    margin: 5px;
+}
+#header_points i {
+    color: gold;
+    font-size: 24px;
+}
+.header_link{
+    transition: all 0.2;
+}
+.header_link:hover {
+    color: #393b58;
 }
