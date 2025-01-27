@@ -14,6 +14,9 @@ $leaves = new Leaves($pdo); // Create an instance of the Leaves class
 $takenDates = $leaves->getTakenDates();
 $employeeTakenDates = $leaves->getEmployeeTakenDates($user_id);
 
+// Merge and format dates properly
+$allTakenDates = array_merge($takenDates, $employeeTakenDates);
+
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $selectedDates = $_POST['dates']; // Dates selected by the user
@@ -56,35 +59,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="leave_submit">Złóż wniosek</button>
         </form>
 
-
-
         <div id="error-message" class="error"></div>
     </div>
 
-
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        const takenDates = <?php echo json_encode(array_merge($takenDates, $employeeTakenDates)); ?>;
+        // Convert PHP date strings to JavaScript Date objects for taken dates
+        const takenDates = <?php echo json_encode($allTakenDates); ?>.map(date => {
+            return new Date(date);
+        });
 
         // Initialize the calendar
         const calendar = flatpickr("#dates", {
-            mode: "multiple", // Pozwala na wybór wielu dat
-            dateFormat: "Y-m-d", // Format daty
-            minDate: "today", // Blokuje przeszłe daty
+            mode: "multiple", // Allows selecting multiple dates
+            dateFormat: "Y-m-d", // Date format
+            minDate: "today", // Disables past dates
             disable: [
-                // Blokowanie weekendów
+                // Disables weekends
                 function(date) {
-                    return (date.getDay() === 0 || date.getDay() === 6); // 0 = Niedziela, 6 = Sobota
+                    return (date.getDay() === 0 || date.getDay() === 6); // 0 = Sunday, 6 = Saturday
                 },
-                // Blokowanie zajętych terminów
-                ...takenDates.map(date => new Date(date))
+                // Disable taken dates
+                ...takenDates
             ],
             onChange: function(selectedDates, dateStr, instance) {
                 document.getElementById('selected-dates-list').textContent = dateStr;
             }
         });
 
-        // Walidacja formularza przed wysłaniem
+        // Form validation before submission
         function validateForm() {
             const selectedDates = calendar.selectedDates;
             if (selectedDates.length === 0) {
