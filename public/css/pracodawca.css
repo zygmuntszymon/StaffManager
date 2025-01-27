@@ -1,5 +1,5 @@
 .pracownik {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 10px;
     background-color: #f4f4f4;
     border-radius: 2px;
@@ -7,8 +7,30 @@
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
+    border: 1px solid #f4f4f4;
+    transition: all .2s;
+    user-select: none;
 }
-
+.pracownik:hover{
+    border: 1px solid #c0c0c0;
+}
+.pracownik_nazwisko{
+    font-weight: bold;
+    width: 200px;
+    text-align: left;
+    font-size: 20px;
+    padding-left: 10px;
+}
+.pracownik_imie{
+    width: 200px;
+    text-align: left;
+    font-size: 20px;
+}
+.pracownik_rola{
+    width: 200px;
+    text-align: left;  
+    font-style: italic; 
+}
 .panel {
     margin: 20px;
     font-family: Arial, sans-serif;
@@ -22,6 +44,10 @@
 .lista_pracownikow_header {
     font-size: 24px;
     margin: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
 }
 
 .add_worker_btn {
@@ -29,15 +55,16 @@
     color: white;
     padding: 10px 20px;
     border: none;
-    border-radius: 3px;
+    border-radius: 2px;
     cursor: pointer;
     font-size: 14px;
+    margin-left: 1rem;
 }
 
 .add_worker_btn:hover {
     background-color: #393b58;
 }
-
+/* MODALE */
 .modal {
     position: fixed;
     top: 0;
@@ -50,7 +77,87 @@
     justify-content: center;
     z-index: 1000;
 }
+.delete_worker_modal{
+    padding: 10px 20px;
+    height: 180px;
+    background-color: white;
+    border-radius: 5px;
+}
+#delete_worker_form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#delete_worker_form > *{
+    margin: 0.5rem;
+}
+.cancel-btn{
+    width: 70px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+.cancel-btn:hover{
+    background-color: #dadada;
+}
 
+.update_worker_form{
+    width: 350px;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+#update_worker_form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.update_worker_form form input,
+.update_worker_form form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #1D1E2C;
+    border-radius: 3px;
+    font-size: 14px;
+}
+.update_worker_form form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.update_worker_form form button[type="submit"] {
+    background-color: #1D1E2C;
+    color: white;
+}
+
+.update_worker_form form button[type="submit"]:hover {
+    background-color: #393b58;
+}
+
+.update_worker_form form .cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.update_worker_form form .cancel-btn:hover {
+    background-color: #d35050;
+}
+/*  */
 .add_worker_form {
     height: max-content;
     padding: 20px 20px;
@@ -61,7 +168,7 @@
     flex-direction: column;
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 
 .add_worker_form h3 {
@@ -83,8 +190,8 @@
     width: 100%;
     padding: 10px;
     margin: 10px 0;
-    border: 2px solid #1D1E2C;
-    border-radius: 5px;
+    border: 1px solid #1D1E2C;
+    border-radius: 3px;
     font-size: 14px;
 }
 
@@ -94,7 +201,7 @@
     margin: 10px 0;
     font-size: 16px;
     border: none;
-    border-radius: 5px;
+    border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -114,6 +221,31 @@
 }
 
 .add_worker_form form .cancel-btn:hover {
-    background-color: #d32f2f;
+    background-color: #d35050;
 }
 
+.delete_worker_btn{
+    width: 70px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+}
+.delete_worker_btn:hover {
+    background-color: #d15c5c;
+}
+.update_worker_btn{
+    width: 70px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #cacaca;
+}
+.update_worker_btn:hover {
+    background-color: #dfdfdf;
+}

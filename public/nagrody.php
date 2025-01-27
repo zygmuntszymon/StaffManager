@@ -31,7 +31,7 @@ $dni_wolne = $userModel ->getDaysOff($userId);
     <div class="nagroda">
         <div>
             <p class="nagroda-title"><i class="fa-solid fa-bed"></i> Dodatkowy dzień wolny</p>
-            <p>Twoje dodatkowe dni wolne: <strong><?php echo $dni_wolne; ?> <?php if($dni_wolne == 3) echo '<i>(MAX)</i>'?></strong></p>
+            <p>Twoje dodatkowe dni wolne: <strong><?php echo $dni_wolne; ?> <?php if($dni_wolne == 3) echo '<i>(MAX)</i>'?><?php if($dni_wolne == 0) echo '0'?></strong></p>
         </div>
         <form action="../app/utils/wymien_punkty.php" method="post">
             <input type="hidden" name="nagroda_id" value="dzien-wolny">

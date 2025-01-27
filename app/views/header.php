@@ -20,6 +20,8 @@ if (Session::isLoggedIn()) {
     <link rel="stylesheet" href="../public/css/pracownik.css">
     <link rel="stylesheet" href="../public/css/pracodawca.css">
     <link rel="stylesheet" href="../public/css/nagrody.css">
+    <link rel="stylesheet" href="../public/css/wnioski.css">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>StaffManager</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -63,10 +65,17 @@ if (Session::isLoggedIn()) {
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') { ?>
                         <a href="dashboard_pracownik.php" class="header_link"><i class="fa-solid fa-list-check"></i> Zadania</a>
                         <a href="nagrody.php" class="header_link"> <i class="fa-solid fa-trophy"></i> Nagrody</a>
-                        <a href="" class="header_link"> <i class="fa-solid fa-file"></i> Wnioski</a>
+                        <a href="urlopy.php" class="header_link"> <i class="fa-solid fa-file"></i> Urlopy</a>
                         <div id="header_points">
                             <i class="fa-solid fa-coins"></i> &nbsp;<span id="user-points"> <?php echo $_SESSION['punkty']; ?></span>
                         </div>
+                    <?php
+                    }
+                    ?>
+                    <?php
+                    if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracodawca') { ?>
+                        <a href="dashboard_pracodawca.php" class="header_link"> <i class="fa-solid fa-user-tie"></i> Pracownicy</a>
+                        <a href="urlopy.php" class="header_link"> <i class="fa-solid fa-calendar-days"></i> Kalendarz urlopowy</a>
                     <?php
                     }
                     ?>
