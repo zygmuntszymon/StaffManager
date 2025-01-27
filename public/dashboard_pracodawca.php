@@ -67,42 +67,44 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
 
 <div class="panel">
     <p>
-        Witaj <b><?php echo($user['imie'] . " " . $user['nazwisko'] . " (" . $user['rola'] . ")"); ?></b>
+        Witaj <b><?php echo ($user['imie'] . " " . $user['nazwisko'] . " (" . $user['rola'] . ")"); ?></b>
     </p>
     <div class="lista_pracownikow_container">
         <h3 class="lista_pracownikow_header">
             Lista pracowników:
             <button type="button" onclick="openModalAdd()" class="add_worker_btn">Dodaj &nbsp; <i
-                        class="fa-solid fa-plus"></i></button>
+                    class="fa-solid fa-plus"></i></button>
         </h3>
 
         <?php
         if (!empty($users)) {
-        foreach ($users
+            foreach (
+                $users
 
-        as $user) {
-        echo "<div class='pracownik'>";
-        echo "<span class='pracownik_nazwisko'>" . htmlspecialchars($user['nazwisko']) . "</span>";
-        echo "<span class='pracownik_imie'>" . htmlspecialchars($user['imie']) . "</span>";
-        echo "<span class='pracownik_rola'>" . htmlspecialchars($user['rola']) . "</span>";
-        echo "<div class='pracownik_akcje'>";
+                as $user
+            ) {
+                echo "<div class='pracownik'>";
+                echo "<span class='pracownik_nazwisko'>" . htmlspecialchars($user['nazwisko']) . "</span>";
+                echo "<span class='pracownik_imie'>" . htmlspecialchars($user['imie']) . "</span>";
+                echo "<span class='pracownik_rola'>" . htmlspecialchars($user['rola']) . "</span>";
+                echo "<div class='pracownik_akcje'>";
         ?>
-        <button type="button" class="delete_worker_btn" onclick="openModalDelete(<?php echo $user['id']; ?>)">Usuń
-        </button>
-        <button type="button" class="update_worker_btn" onclick="openModalUpdate(<?php echo $user['id']; ?>,
+                <button type="button" class="delete_worker_btn" onclick="openModalDelete(<?php echo $user['id']; ?>)">Usuń
+                </button>
+                <button type="button" class="update_worker_btn" onclick="openModalUpdate(<?php echo $user['id']; ?>,
                 '<?php echo htmlspecialchars($user['imie'], ENT_QUOTES); ?>',
                 '<?php echo htmlspecialchars($user['nazwisko'], ENT_QUOTES); ?>',
                 '<?php echo htmlspecialchars($user['pesel'], ENT_QUOTES); ?>',
                 '<?php echo htmlspecialchars($user['rola'], ENT_QUOTES); ?>')">Edytuj
-        </button>
-        <button type="submit" name="mark_done" class="btn_wykonane">Dodaj zadanie &nbsp; <i class="fa-solid fa-plus"></i></button>
+                </button>
+                <button type="submit" name="mark_done" class="btn_wykonane">Dodaj zadanie &nbsp; <i class="fa-solid fa-plus"></i></button>
     </div>
 </div>
 <?php
-}
-} else {
-    echo "Brak pracowników w bazie danych.";
-}
+            }
+        } else {
+            echo "Brak pracowników w bazie danych.";
+        }
 ?>
 
 
@@ -111,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
 <!-- Okno Modalne dla dodawania-->
 <div id="add_worker_modal" class="modal" style="display: none;">
     <div class="add_worker_form">
-        <form id="add_Worker_Form" method="POST" action="">
+        <form id="add_Worker_form" method="POST" action="">
             <h3>Dodaj Pracownika</h3>
             <input type="text" name="imie" placeholder="Imię" required>
             <input type="text" name="nazwisko" placeholder="Nazwisko" required>
@@ -136,9 +138,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
             <input type="hidden" name="id" id="delete_worker_id" value="">
             <h3>Usuń Pracownika</h3>
             <label>Czy napewno chcesz usunać pracownika?</label>
-            <button type="submit" name="delete_worker_btn"
-            ">Usuń</button>
-            <button type="button" class="cancel-btn" onclick="closeModalDelete()">Anuluj</button>
+            <div>
+                <button type="submit" name="delete_worker_btn" class="delete_worker_btn">Usuń</button>
+                <button type="button" class="cancel-btn" onclick="closeModalDelete()">Anuluj</button>
+            </div>
+
         </form>
     </div>
 </div>
