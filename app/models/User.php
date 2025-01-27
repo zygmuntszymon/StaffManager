@@ -38,6 +38,24 @@ class User {
         $stmt = $this->pdo->prepare("INSERT INTO pracownicy (imie, nazwisko, pesel, rola, login, haslo, data_zatrudnienia) VALUES (?, ?, ?, ?, ?, ?, ?)");
         return $stmt->execute([$imie, $nazwisko, $pesel, $rola, $login, $hashedPassword, $data_zatrudnienia]);
     }
+    public function deleteUser($id) {
+        $stmt = $this->pdo->prepare("DELETE FROM pracownicy WHERE id = ?");
+        return $stmt->execute([$id]);
+    }
+
+    public function updateUser($id, $imie, $nazwisko, $pesel, $rola, $haslo)
+    {
+        // Jeśli pole hasło nie jest puste, aktualizujemy również kolumnę "haslo".
+        if (!empty($haslo)) {
+            $hashedPassword = password_hash($haslo, PASSWORD_DEFAULT);
+            $stmt = $this->pdo->prepare("UPDATE pracownicy SET imie = ?, nazwisko = ?, pesel = ?,rola = ?, haslo = ? WHERE id = ?");
+            return $stmt->execute([$imie, $nazwisko, $pesel, $rola, $hashedPassword, $id]);
+        } else {
+            // Gdy hasło nie jest podane, nie aktualizujemy kolumny "haslo".
+            $stmt = $this->pdo->prepare("UPDATE pracownicy SET imie = ?, nazwisko = ?, pesel = ?, rola = ? WHERE id = ?");
+            return $stmt->execute([$imie, $nazwisko, $pesel, $rola, $id]);
+        }
+    }
 
     public function getUserByLogin($login) {
         $stmt = $this->pdo->prepare("SELECT * FROM pracownicy WHERE login = ?");
