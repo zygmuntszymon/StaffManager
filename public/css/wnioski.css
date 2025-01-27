@@ -1,0 +1,124 @@
+.leave_panel{
+    height: fit-content;
+    width: fit-content;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    padding: 40px;
+    position: absolute;
+    top: 100px;
+}
+.leave_panel > h1 {
+    margin-bottom: 2rem;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.leave_panel > form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.leave_panel > form > *{
+    margin-bottom: 1rem;
+}
+.calendar {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.calendar > input {
+    width: 48px;
+    height: 26px;
+    margin-left: 10px;
+}
+.leave_submit{
+    height: 36px;
+    width: 220px;
+    background-color: rgb(58, 126, 58);
+    cursor: pointer;
+    color: white;
+    border: none;
+    border-radius: 2px;
+}
+.leave_submit:hover{
+    background-color: rgba(58, 126, 58, 0.80);
+}
+#error-message{
+    width: 100%;
+    text-align: center;
+    color: red;
+}
+.selected-dates{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#selected-dates-list{
+    font-size: 13px;
+}
+
+
+/* kalendarz */
+
+.calendar-container {
+    width: fit-content;
+    margin: 20px 0 100px 0;
+    text-align: center;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    width: 600px;
+}
+
+.calendar-header h2 {
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.nav-btn {
+    background: #686868;
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+    border-radius: 2px;
+    font-weight: bold;
+}
+
+
+.calendar-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    user-select: none;
+}
+
+.calendar-table th, 
+.calendar-table td {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.calendar-table th {
+    background: #686868;
+    color: white;
+}
+
+.empty {
+    background: #f1f1f1;
+}
+
+.leave-day {
+    background: rgb(58, 126, 58);
+    color: white;
+    border-radius: 2px;
+} 

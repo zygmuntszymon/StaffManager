@@ -6,10 +6,19 @@ require_once __DIR__ . '/../app/models/Points.php'; // Dodaj to, aby załadować
 Session::start();
 $auth = new AuthController($pdo);
 
+if (isset($_SESSION['user'])) {
+    if($_SESSION['rola'] === "pracownik"){
+        header('Location: dashboard_pracownik.php');
+    }
+    if($_SESSION['rola'] === "pracodawca"){
+        header('Location: dashboard_pracodawca.php');
+    }
+    exit();
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($auth->login($_POST['login'], $_POST['haslo'])) {
-        // Pobierz punkty użytkownika po zalogowaniu
-        var_dump($_SESSION['user_id']); // Debugowanie: sprawdź wartość `$_SESSION['user_id']`
+        var_dump($_SESSION['user_id']);
         exit();
     } else {
         echo "Nieprawidłowy login lub hasło!";
