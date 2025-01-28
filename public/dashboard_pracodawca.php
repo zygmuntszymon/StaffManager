@@ -87,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
                 echo "<span class='pracownik_nazwisko'>" . htmlspecialchars($user['nazwisko']) . "</span>";
                 echo "<span class='pracownik_imie'>" . htmlspecialchars($user['imie']) . "</span>";
                 echo "<span class='pracownik_rola'>" . htmlspecialchars($user['rola']) . "</span>";
+                echo "<span class='pracownik_punkty'>" . htmlspecialchars($user['punkty']) . "</span>";
                 echo "<div class='pracownik_akcje'>";
         ?>
                 <button type="button" class="delete_worker_btn" onclick="openModalDelete(<?php echo $user['id']; ?>)">Usuń
@@ -97,7 +98,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
                 '<?php echo htmlspecialchars($user['pesel'], ENT_QUOTES); ?>',
                 '<?php echo htmlspecialchars($user['rola'], ENT_QUOTES); ?>')">Edytuj
                 </button>
-                <button type="submit" name="mark_done" class="btn_wykonane">Dodaj zadanie &nbsp; <i class="fa-solid fa-plus"></i></button>
     </div>
 </div>
 <?php
@@ -108,8 +108,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
 ?>
 
 
-</div>
-</div>
 <!-- Okno Modalne dla dodawania-->
 <div id="add_worker_modal" class="modal" style="display: none;">
     <div class="add_worker_form">
