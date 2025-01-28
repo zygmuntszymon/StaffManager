@@ -75,7 +75,8 @@ if (Session::isLoggedIn()) {
                     <?php
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracodawca') { ?>
                         <a href="dashboard_pracodawca.php" class="header_link"> <i class="fa-solid fa-user-tie"></i> Pracownicy</a>
-                        <a href="urlopy.php" class="header_link"> <i class="fa-solid fa-calendar-days"></i> Kalendarz urlopowy</a>
+                        <a href="zadania.php" class="header_link"> <i class="fa-solid fa-file-lines"></i> Zadania</a>
+                        <a href="urlopy.php" class="header_link"> <i class="fa-solid fa-calendar-days"></i> Urlopy Pracowników</a>
                     <?php
                     }
                     ?>

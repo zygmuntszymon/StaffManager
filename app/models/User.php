@@ -63,20 +63,18 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getTasksForUser($pracownik_id) {
-        $stmt = $this->pdo->prepare("
-            SELECT z.*
-            FROM zadania z
-            JOIN pracownik_zadanie pz ON z.id = pz.zadanie_id
-            WHERE pz.pracownik_id = ?
-        ");
-        $stmt->execute([$pracownik_id]);
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+
     public function getAllUsers()
     {
         $stmt = $this->pdo->prepare("SELECT * FROM pracownicy ORDER BY nazwisko, imie, rola");
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getTasksForUser($pracownik_id) {
+        $stmt = $this->pdo->prepare("SELECT z.* FROM zadania z JOIN pracownik_zadanie pz ON z.id = pz.zadanie_id
+            WHERE pz.pracownik_id = ?");
+        $stmt->execute([$pracownik_id]);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
     public function getBonus($user_id) {
