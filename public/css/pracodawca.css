@@ -11,6 +11,22 @@
     transition: all .2s;
     user-select: none;
 }
+.pracownicy_naglowek{
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(185, 185, 185);
+}
+.pracownicy_naglowek > span {
+    width: 200px ;
+    text-align: left;
+}
+.pracownicy_naglowek > span:nth-child(1){
+    padding-left: 10px;
+}
 .pracownik:hover{
     border: 1px solid #c0c0c0;
 }
@@ -35,7 +51,9 @@
 .pracownik_punkty{
     width: 200px;
     text-align: left;
-    font-style: italic;
+}
+.pracownik_akcje{
+    width: 200px;
 }
 
 .panel {
@@ -100,17 +118,6 @@
 }
 #delete_worker_form > *{
     margin: 0.5rem;
-}
-.cancel-btn{
-    width: 70px;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-}
-.cancel-btn:hover{
-    background-color: #dadada;
 }
 
 .update_worker_form{

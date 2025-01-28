@@ -14,7 +14,7 @@ $user = $userModel->getUserByLogin($_SESSION['login']);
 $users = $userModel->getAllUsers();
 $message = "";
 
-// Dodwanie Pracownika
+// Dodawanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_worker_btn'])) {
     $imie = $_POST['imie'];
     $nazwisko = $_POST['nazwisko'];
@@ -24,7 +24,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_worker_btn'])) {
 
     if ($userModel->createUser($imie, $nazwisko, $pesel, $rola, $haslo)) {
         $message = "Pracownik został dodany pomyślnie!";
-        // Odświeżanie listy pracwoników
         $users = $userModel->getAllUsers();
     } else {
         $message = "Wystąpił błąd podczas dodawania pracownika.";
@@ -37,13 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_worker_btn']))
 
     if ($userModel->deleteUser($id)) {
         $message = "Pracownik został usunięty pomyślnie!";
-        // Odświeżanie listy pracwoników
         $users = $userModel->getAllUsers();
     } else {
         $message = "Wystąpił błąd podczas usuwania pracownika.";
     }
 }
-
 
 // Edytowanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn'])) {
@@ -52,12 +49,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     $nazwisko = $_POST['nazwisko'];
     $pesel = $_POST['pesel'];
     $rola = $_POST['rola'];
-    $haslo = $_POST['haslo']; // może być puste
+    $haslo = $_POST['haslo']; 
 
     $success = $userModel->updateUser($id, $imie, $nazwisko, $pesel, $rola, $haslo);
     if ($success) {
         $message = "Użytkownik został zaktualizowany!";
-        // odświeżenie listy pracowników:
         $users = $userModel->getAllUsers();
     } else {
         $message = "Wystąpił błąd podczas aktualizacji danych.";
@@ -72,40 +68,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     <div class="lista_pracownikow_container">
         <h3 class="lista_pracownikow_header">
             Lista pracowników:
-            <button type="button" onclick="openModalAdd()" class="add_worker_btn">Dodaj &nbsp; <i
-                    class="fa-solid fa-plus"></i></button>
+            <button type="button" onclick="openModalAdd()" class="add_worker_btn">Dodaj &nbsp; <i class="fa-solid fa-plus"></i></button>
         </h3>
 
-        <?php
-        if (!empty($users)) {
-            foreach (
-                $users
-
-                as $user
-            ) {
-                echo "<div class='pracownik'>";
-                echo "<span class='pracownik_nazwisko'>" . htmlspecialchars($user['nazwisko']) . "</span>";
-                echo "<span class='pracownik_imie'>" . htmlspecialchars($user['imie']) . "</span>";
-                echo "<span class='pracownik_rola'>" . htmlspecialchars($user['rola']) . "</span>";
-                echo "<span class='pracownik_punkty'>" . htmlspecialchars($user['punkty']) . "</span>";
-                echo "<div class='pracownik_akcje'>";
-        ?>
-                <button type="button" class="delete_worker_btn" onclick="openModalDelete(<?php echo $user['id']; ?>)">Usuń
-                </button>
-                <button type="button" class="update_worker_btn" onclick="openModalUpdate(<?php echo $user['id']; ?>,
-                '<?php echo htmlspecialchars($user['imie'], ENT_QUOTES); ?>',
-                '<?php echo htmlspecialchars($user['nazwisko'], ENT_QUOTES); ?>',
-                '<?php echo htmlspecialchars($user['pesel'], ENT_QUOTES); ?>',
-                '<?php echo htmlspecialchars($user['rola'], ENT_QUOTES); ?>')">Edytuj
-                </button>
+        <?php if (!empty($users)) { ?>
+            <div class="pracownicy_tabela">
+                <div class="pracownicy_naglowek">
+                    <span>Nazwisko</span>
+                    <span>Imię</span>
+                    <span>Rola</span>
+                    <span>Punkty</span>
+                    <span >Akcje</span>
+                </div>
+                <?php foreach ($users as $user) { ?>
+                    <div class='pracownik'>
+                        <span class='pracownik_nazwisko'><?= htmlspecialchars($user['nazwisko']) ?></span>
+                        <span class='pracownik_imie'><?= htmlspecialchars($user['imie']) ?></span>
+                        <span class='pracownik_rola'><?= htmlspecialchars($user['rola']) ?></span>
+                        <span class='pracownik_punkty'><?= htmlspecialchars($user['punkty']) ?></span>
+                        <div class='pracownik_akcje'>
+                            <button type="button" class="delete_btn--icon" onclick="openModalDelete(<?= $user['id'] ?>)"><i class="fa-solid fa-trash-can"></i></button>
+                            <button type="button" class="update_btn--icon" onclick="openModalUpdate(
+                                <?= $user['id'] ?>,
+                                '<?= htmlspecialchars($user['imie'], ENT_QUOTES) ?>',
+                                '<?= htmlspecialchars($user['nazwisko'], ENT_QUOTES) ?>',
+                                '<?= htmlspecialchars($user['pesel'], ENT_QUOTES) ?>',
+                                '<?= htmlspecialchars($user['rola'], ENT_QUOTES) ?>'
+                            )"><i class="fa-solid fa-pen-to-square"></i></button>
+                        </div>
+                    </div>
+                <?php } ?>
+            </div>
+        <?php } else {
+            echo "<p>Brak pracowników w bazie danych.</p>";
+        } ?>
     </div>
 </div>
-<?php
-            }
-        } else {
-            echo "Brak pracowników w bazie danych.";
-        }
-?>
 
 
 <!-- Okno Modalne dla dodawania-->
@@ -124,8 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
             <div style="position: relative; width: 100%;">
                 <input type="password" id="haslo" name="haslo" placeholder="Hasło" required>
             </div>
-            <button type="submit" name="add_worker_btn">Dodaj</button>
-            <button type="button" class="cancel-btn" onclick="closeModal()">Anuluj</button>
+            <button type="submit" name="add_worker_btn" class="btn_modal--accept">Dodaj</button>
+            <button type="button" class="btn_modal--cancel" onclick="closeModal()">Anuluj</button>
         </form>
     </div>
 </div>
@@ -137,8 +135,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
             <h3>Usuń Pracownika</h3>
             <label>Czy napewno chcesz usunać pracownika?</label>
             <div>
-                <button type="submit" name="delete_worker_btn" class="delete_worker_btn">Usuń</button>
-                <button type="button" class="cancel-btn" onclick="closeModalDelete()">Anuluj</button>
+                <button type="submit" name="delete_worker_btn" class="btn_modal--delete">Usuń</button>
+                <button type="button" class="btn_modal--cancel" onclick="closeModalDelete()">Anuluj</button>
             </div>
 
         </form>
@@ -158,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
                 <option value="pracodawca">Pracodawca</option>
             </select>
             <input type="password" id="update_haslo" name="haslo" placeholder="Hasło (zostaw puste, aby nie zmieniać)">
-            <button type="submit" name="update_worker_btn">Zapisz zmiany</button>
-            <button type="button" class="cancel-btn" onclick="closeModalUpdate()">Anuluj</button>
+            <button type="submit" name="update_worker_btn" class="btn_modal--accept">Zapisz zmiany</button>
+            <button type="button" class="btn_modal--cancel" onclick="closeModalUpdate()">Anuluj</button>
         </form>
     </div>
 </div>

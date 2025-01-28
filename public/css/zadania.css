@@ -1,0 +1,95 @@
+.zadania_naglowek{
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(185, 185, 185);
+}
+.zadania_naglowek > span {
+    width: 200px ;
+    text-align: left;
+}
+.zadania_naglowek > span:nth-child(1){
+    padding-left: 10px;
+    width: 400px ;
+}
+.zadanie {
+    min-height: 56px;
+}
+.zadanie_nazwa{
+    width: 400px;
+    padding-left: 10px;
+}
+.zadanie_deadline{
+    width: 200px;
+}
+.zadanie_punkty{
+    width: 200px;
+    color: goldenrod;
+}
+.zadanie_status{
+    width: 200px;
+}
+.zadanie_pracownik{
+    width: 200px;
+}
+.zadanie_akcje{
+    width: 200px;
+}
+.zadanie_akcje{
+    width: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+.zadanie_akcje > * {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.add_zadanie_btn{
+    background-color: #1D1E2C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 1rem;
+}
+.add_zadanie_btn:hover {
+    background-color: #393b58;
+}
+
+/* modal */
+.przypisz_modal{
+    padding: 10px 20px;
+    height: 180px;
+    background-color: white;
+    border-radius: 5px;
+}
+#przypisz_modal{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 20px;
+}
+#przypisz_modal form{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.przypisz_modal form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #1D1E2C;
+    border-radius: 3px;
+    font-size: 14px;
+}
