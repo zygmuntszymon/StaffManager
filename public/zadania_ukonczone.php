@@ -14,7 +14,7 @@ $tasksToBeDone = $tasksModel->getTasksByStatus('ukończone');
 $message = "";
 
 
-// Usuwanie Pracownika
+// Usuwanie zadania
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])) {
     $id = $_POST['id'];
 
@@ -43,11 +43,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])
         <?php
         if (!empty($tasksToBeDone)) {
         foreach ($tasksToBeDone as $task) {
+        $workerName = $tasksModel->getNameAndSurnameWorker($task['id']);
         echo "<div class='pracownik'>";
         echo "<span class='pracownik_nazwisko'>" . htmlspecialchars($task['opis']) . "</span>";
         echo "<span class='pracownik_imie'>" . htmlspecialchars($task['deadline']) . "</span>";
         echo "<span class='pracownik_rola'>" . htmlspecialchars($task['ilosc_punkty']) .  ' <i class="fa-solid fa-trophy"></i>' . "</span>";
+        echo "<span class='pracownik_imie'>" . htmlspecialchars($task['data_zakonczenia']) . "</span>";
         echo "<span class='pracownik_rola'>" . htmlspecialchars($task['status']) . "</span>";
+        echo "<span class='pracownik_rola'>" . htmlspecialchars($workerName) . "</span>";
         echo "<div class='pracownik_akcje'>";
         ?>
         <button type="button" class="delete_zadanie_btn" onclick="openModalDelete(<?php echo $task['id']; ?>)">Usuń
@@ -62,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])
 ?>
 
 
-<!-- Okno Modalne do usuwania pracownika-->
+<!-- Okno Modalne do usuwania zadania-->
 <div id="delete_worker_modal" class="modal" style="display: none;">
     <div class="delete_worker_modal">
         <form id="delete_worker_form" method="POST" action="">

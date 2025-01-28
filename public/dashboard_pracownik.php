@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_done'])) {
     
     if ($tasksModel->markTaskAsDone($taskId)) {
         $message = "<p>Zadanie zostało oznaczone jako wykonane.</p>";
+
         header("Refresh: 1; URL=dashboard_pracownik.php");
         exit(); 
     } else {
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_done'])) {
             <?php
             $hasPendingTasks = false;
             foreach ($zadania as $zadanie) {
-                if ($zadanie['status'] == 'do wykonania') {
+                if ($zadanie['status'] == 'w realizacji') {
                     $hasPendingTasks = true;
                     echo "<div class='zadanie'>";
                     echo "<span class='zadanie_opis'>" . htmlspecialchars($zadanie['opis']) . "</span>";

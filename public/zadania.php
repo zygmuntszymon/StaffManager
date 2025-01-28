@@ -132,7 +132,7 @@ if (!empty($tasksToBeDone)) {
     </div>
 </div>
 
-<!-- Okno Modalne do usuwania pracownika-->
+<!-- Okno Modalne do usuwania zadania-->
 <div id="delete_worker_modal" class="modal" style="display: none;">
     <div class="delete_worker_modal">
         <form id="delete_worker_form" method="POST" action="">
@@ -148,11 +148,11 @@ if (!empty($tasksToBeDone)) {
     </div>
 </div>
 
-<!-- Okno Modalne do edytowania pracownika-->
+<!-- Okno Modalne do edytowania zadania-->
 <div id="update_worker_modal" class="modal" style="display: none;">
     <div class="update_worker_form">
         <form id="update_worker_form" method="POST" action="">
-            <h3>Edytuj Pracownika</h3>
+            <h3>Edytuj Zadanie</h3>
             <input type="hidden" name="id" id="update_user_id" value="">
             <input type="text" name="opis" id="update_opis" placeholder="Opis" required>
             <input type="date" name="deadline" id="update_deadline" placeholder="Deadline" required>

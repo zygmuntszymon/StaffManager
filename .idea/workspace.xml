@@ -5,17 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a230be26-4569-4d67-b820-bb474ba85d80" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/public/css/zadania.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zadania.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zadania_realizacja.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/zadania_ukonczone.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/models/Tasks.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/Tasks.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/views/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/views/header.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/css/pracodawca.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/css/pracodawca.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/dashboard_pracodawca.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/dashboard_pracodawca.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/dashboard_pracownik.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/dashboard_pracownik.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/zadania.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/zadania.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/zadania_realizacja.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/zadania_realizacja.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/zadania_ukonczone.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/zadania_ukonczone.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +95,7 @@
       <workItem from="1737894618088" duration="37000" />
       <workItem from="1737922849505" duration="4834000" />
       <workItem from="1738002327869" duration="19749000" />
+      <workItem from="1738094446980" duration="2798000" />
     </task>
     <servers />
   </component>
