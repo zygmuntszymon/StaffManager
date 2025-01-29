@@ -1,5 +1,4 @@
 <?php
-
 require_once __DIR__ . '/../utils/config.php';
 
 class Tasks {
@@ -9,11 +8,24 @@ class Tasks {
         $this->pdo = $pdo;
     }
 
-    public function markTaskAsDone($taskId) {
+    public function markTaskAsDone($taskId, $userId) {
         $stmt = $this->pdo->prepare("UPDATE zadania SET status = 'ukończone' WHERE id = ?");
-        return $stmt->execute([$taskId]);
+        $result = $stmt->execute([$taskId]);
+        
+        if ($result) {
+            $points = $this->getPointsForTask($taskId);
+            $stmt = $this->pdo->prepare('UPDATE pracownicy SET punkty = punkty + :increment WHERE id = :user_id');
+            $stmt->execute(['increment' => $points, 'user_id' => $userId]);
+        }
+    
+        return $result;
     }
-
+    
+    public function getPointsForTask($taskId) {
+        $stmt = $this->pdo->prepare("SELECT ilosc_punkty FROM zadania WHERE id = ?");
+        $stmt->execute([$taskId]);
+        return $stmt->fetchColumn();  // Zwraca jedną wartość (punkty)
+    }
     public function getTasksForUser($userId) {
         $stmt = $this->pdo->prepare("SELECT z.id, z.opis, z.status, z.deadline FROM zadania z
                                      JOIN pracownik_zadanie pz ON pz.zadanie_id = z.id

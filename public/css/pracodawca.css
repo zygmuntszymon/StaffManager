@@ -1,24 +1,23 @@
 .pracownik {
-    margin-bottom: 5px;
     padding: 10px;
-    background-color: #f4f4f4;
-    border-radius: 2px;
+    background-color: #ffffff;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-size: 14px;
-    border: 1px solid #f4f4f4;
+    border-bottom: 1px solid lightgray;
     transition: all .2s;
     user-select: none;
 }
 .pracownicy_naglowek{
-    margin-bottom: 5px;
     padding: 10px;
     border-radius: 2px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    color: rgb(185, 185, 185);
+    color: white;
+    background-color:#1D1E2C;
+    user-select: none;
 }
 .pracownicy_naglowek > span {
     width: 200px ;
@@ -28,24 +27,21 @@
     padding-left: 10px;
 }
 .pracownik:hover{
-    border: 1px solid #c0c0c0;
+    border-bottom: 1px solid gray;
 }
 .pracownik_nazwisko{
     font-weight: bold;
     width: 200px;
     text-align: left;
-    font-size: 20px;
     padding-left: 10px;
 }
 .pracownik_imie{
     width: 200px;
     text-align: left;
-    font-size: 20px;
 }
 .pracownik_rola{
     width: 200px;
     text-align: left;  
-    font-style: italic; 
 }
 
 .pracownik_punkty{
@@ -56,11 +52,11 @@
     width: 200px;
 }
 
-.panel {
+/* .panel {
     margin: 20px;
     font-family: Arial, sans-serif;
     color: #333;
-}
+} */
 
 .panel p {
     font-size: 16px;
@@ -69,25 +65,11 @@
 .lista_pracownikow_header {
     font-size: 24px;
     margin: 2rem;
+    margin-top: 3rem;
     display: flex;
     align-items: center;
     justify-content: start;
 
-}
-
-.add_worker_btn {
-    background-color: #1D1E2C;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 2px;
-    cursor: pointer;
-    font-size: 14px;
-    margin-left: 1rem;
-}
-
-.add_worker_btn:hover {
-    background-color: #393b58;
 }
 /* MODALE */
 .modal {
@@ -101,6 +83,7 @@
     align-items: center;
     justify-content: center;
     z-index: 1000;
+
 }
 .delete_worker_modal{
     padding: 10px 20px;
@@ -138,20 +121,20 @@
 .update_worker_form form select {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #1D1E2C;
+    border: 1px solid lightgray;
     border-radius: 3px;
     font-size: 14px;
+    margin: 6px 0;
 }
 .update_worker_form form button {
     width: 100%;
     padding: 10px;
-    margin: 10px 0;
     font-size: 16px;
     border: none;
     border-radius: 3px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    margin: 6px 0;
 }
 
 .update_worker_form form button[type="submit"] {

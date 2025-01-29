@@ -5,7 +5,7 @@ require_once __DIR__ . '/../app/utils/session.php';
 require_once __DIR__ . '/../app/models/Points.php'; // Dodaj to, aby załadować model Points
 Session::start();
 $auth = new AuthController($pdo);
-
+$err = '';
 if (isset($_SESSION['user'])) {
     if($_SESSION['rola'] === "pracownik"){
         header('Location: dashboard_pracownik.php');
@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var_dump($_SESSION['user_id']);
         exit();
     } else {
-        echo "Nieprawidłowy login lub hasło!";
+        $err = "Nieprawidłowy login lub hasło!";
     }
 }
 ?>
@@ -33,4 +33,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <button type="submit">Zaloguj się</button>
     </form>
     <p>Nie masz konta? <a href="register.php"><u>Zarejestruj się</u></a></p>
+    <div class="err"><?php echo $err ?></div>
 </div>

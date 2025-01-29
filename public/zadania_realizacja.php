@@ -15,12 +15,16 @@ $message =  "";
 ?>
 <div class="panel">
     <div class="zadania_menu_container">
-        <h3 class="zadania_menu_header">
-            <a href="zadania.php"> Zadania</a> &nbsp
-            <a href="zadania_realizacja.php">Realizacja</a> &nbsp
-            <a href="zadania_ukonczone.php">Ukończone</a>
-        </h3>
+        <?php
+        $currentFileName = basename($_SERVER['PHP_SELF']);
+        ?>
+        <div class="zadania_menu_header">
+            <a href="zadania.php" class="<?= ($currentFileName == 'zadania.php') ? 'selected' : ''; ?>">Zadania</a>
+            <a href="zadania_realizacja.php" class="<?= ($currentFileName == 'zadania_realizacja.php') ? 'selected' : ''; ?>">W realizacji</a>
+            <a href="zadania_ukonczone.php" class="<?= ($currentFileName == 'zadania_ukonczone.php') ? 'selected' : ''; ?>">Ukończone</a>
+        </div>
     </div>
+
     <h3 class="lista_pracownikow_header">
         Lista zadań w realizacji
     </h3>
@@ -46,6 +50,19 @@ $message =  "";
                 </div>
             <?php } ?>
         <?php } else {
-            echo "<p>Brak zadań w bazie danych.</p>";
+            echo "<p style='margin:2rem'>Brak zadań w realizacji.</p>";
         } ?>
     </div>
+
+    <script>
+        window.addEventListener('load', function() {
+            var links = document.querySelectorAll('.zadania_menu_header a');
+            var currentURL = window.location.href;
+
+            links.forEach(function(link) {
+                if (currentURL.endsWith(link.getAttribute('href'))) {
+                    link.classList.add('selected');
+                }
+            });
+        });
+    </script>

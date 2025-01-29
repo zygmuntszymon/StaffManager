@@ -9,6 +9,18 @@ class Leaves {
         $this->pdo = $pdo;
     }
 
+    public function getEmployeesOnLeave($date) {
+        // Dopasowanie daty w ciągu tekstowym
+        $stmt = $this->pdo->prepare("
+            SELECT p.id, p.imie, p.nazwisko
+            FROM urlopy u
+            JOIN pracownicy p ON u.pracownik_id = p.id
+            WHERE u.daty_urlopu LIKE :date
+        ");
+        // Użycie % dla wyszukania daty w ciągu tekstowym
+        $stmt->execute([':date' => '%'.$date.'%']);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function submitLeaveRequest($employeeId, $leaveDates) {
         if (empty($leaveDates)) {
             throw new Exception("Musisz wybrać co najmniej jeden dzień.");

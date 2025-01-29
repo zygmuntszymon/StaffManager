@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-*{
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');*{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -15,7 +14,7 @@ input {
 }
 body{
     height: 100vh;
-    font-family: "Open Sans", serif;
+    font-family: "Poppins", serif;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -33,7 +32,7 @@ body{
     min-height: 70vh;
     max-width: 1296px;
     background-color: white;
-    border-radius: 5px;
+    border-radius: 3px;
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
     padding: 40px;
     position: absolute;
@@ -84,6 +83,22 @@ button{
     background-color: #89b486;
 }
 
+/* przycisk dodaj [pracownika, zadanie]*/
+.add_btn {
+    background-color: #1D1E2C;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: 1rem;
+    transition: all .2s;
+}
+
+.add_btn:hover {
+    background-color: #393b58;
+}
 /*przyciski modalne**/
 
 .btn_modal--accept{
@@ -111,4 +126,11 @@ button{
     border-radius: 2px;
     background-color:#f44336;
     color:white;
+}
+
+.err{
+    color: red;
+    text-align: center;
+    margin: 5px;
+    font-size: 14px;
 }

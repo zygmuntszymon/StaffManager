@@ -71,18 +71,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         $message = "Wystąpił błąd podczas przypisania zadania.";
     }
 }
+
+
 ?>
 <div class="panel">
     <div class="zadania_menu_container">
-        <h3 class="zadania_menu_header">
-            <a href="zadania.php">Zadania</a> &nbsp
-            <a href="zadania_realizacja.php">Realizacja</a> &nbsp
-            <a href="zadania_ukonczone.php">Ukończone</a>
-        </h3>
+        <?php
+        $currentFileName = basename($_SERVER['PHP_SELF']);
+        ?>
+        <div class="zadania_menu_header">
+            <a href="zadania.php" class="<?= ($currentFileName == 'zadania.php') ? 'selected' : ''; ?>">Zadania</a>
+            <a href="zadania_realizacja.php" class="<?= ($currentFileName == 'zadania_realizacja.php') ? 'selected' : ''; ?>">W realizacji</a>
+            <a href="zadania_ukonczone.php" class="<?= ($currentFileName == 'zadania_ukonczone.php') ? 'selected' : ''; ?>">Ukończone</a>
+        </div>
     </div>
+
     <h3 class="lista_pracownikow_header">
         Lista zadań:
-        <button type="button" onclick="openModalAdd()" class="add_zadanie_btn">Dodaj Zadanie&nbsp; <i
+        <button type="button" onclick="openModalAdd()" class="add_btn">Dodaj Zadanie&nbsp; <i
                 class="fa-solid fa-plus"></i></button>
     </h3>
 
@@ -97,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         </div>
         <?php if (!empty($tasksToBeDone)) { ?>
             <?php foreach ($tasksToBeDone as $task) { ?>
-                <div class='pracownik'>
+                <div class='zadanie'>
                     <span class='zadanie_nazwa'><?= htmlspecialchars($task['opis']) ?></span>
                     <span class='zadanie_deadline'><?= htmlspecialchars($task['deadline']) ?></span>
                     <span class='zadanie_punkty'><?= htmlspecialchars($task['ilosc_punkty']) ?> <i class="fa-solid fa-trophy"></i></span>
@@ -115,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
                 </div>
             <?php } ?>
         <?php } else {
-            echo "<p>Brak zadań w bazie danych.</p>";
+            echo "<p style='margin:2rem'>Brak nieprzypisanych zadań.</p>";
         } ?>
     </div>
 
