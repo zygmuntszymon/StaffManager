@@ -1,12 +1,12 @@
 .login_form{
-    height: 300px;
-    width: 280px;
+    height: max-content;
+    padding: 40px 20px;
+    width: 350px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     background-color: white;
-
     box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 }
 
@@ -23,23 +23,43 @@
     width: 220px;
 }
 
-.login_form > form > input{
-    width: 220px;
-    height: 40px;
-    padding: 6px;
+.login_form > form > select {
+    width: 250px;
+    padding: 10px;
+    border: 1px solid #1D1E2C;
+    border-radius: 5px;
+    background-color: #fff;
+    font-size: 16px;
+    cursor: pointer;
 }
 
+.login_form > form > input{
+    width: 250px;
+    height: 40px;
+    padding: 6px;
+    border: none;
+    border-bottom: 1px solid #1D1E2C;
+}
+.login_form > form > * {
+    margin: 0.7rem;
+}
 .login_form > form > input, .login_form > form > button {
     font-size: 16px;
-    margin: 0.7rem;
 }
 
 .login_form > form > button {
-    width: 220px;
+    width: 250px;
     height: 40px;
     background-color: #1D1E2C;
     color: white;
     outline: none;
     border: none;
     border-radius: 2px;
+    cursor: pointer;
+    margin-top: 2rem;
+    transition: all .2s;
+}
+
+.login_form > form > button:hover{
+    background-color: #393b58;
 }

@@ -1,0 +1,248 @@
+.pracownik {
+    padding: 10px;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    border-bottom: 1px solid lightgray;
+    transition: all .2s;
+    user-select: none;
+}
+.pracownicy_naglowek{
+    padding: 10px;
+    border-radius: 2px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color:#1D1E2C;
+    user-select: none;
+}
+.pracownicy_naglowek > span {
+    width: 200px ;
+    text-align: left;
+}
+.pracownicy_naglowek > span:nth-child(1){
+    padding-left: 10px;
+}
+.pracownik:hover{
+    border-bottom: 1px solid gray;
+}
+.pracownik_nazwisko{
+    font-weight: bold;
+    width: 200px;
+    text-align: left;
+    padding-left: 10px;
+}
+.pracownik_imie{
+    width: 200px;
+    text-align: left;
+}
+.pracownik_rola{
+    width: 200px;
+    text-align: left;  
+}
+
+.pracownik_punkty{
+    width: 200px;
+    text-align: left;
+}
+.pracownik_akcje{
+    width: 200px;
+}
+
+/* .panel {
+    margin: 20px;
+    font-family: Arial, sans-serif;
+    color: #333;
+} */
+
+.panel p {
+    font-size: 16px;
+}
+
+.lista_pracownikow_header {
+    font-size: 24px;
+    margin: 2rem;
+    margin-top: 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+
+}
+/* MODALE */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+
+}
+.delete_worker_modal{
+    padding: 10px 20px;
+    height: 180px;
+    background-color: white;
+    border-radius: 5px;
+}
+#delete_worker_form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+#delete_worker_form > *{
+    margin: 0.5rem;
+}
+
+.update_worker_form{
+    width: 350px;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 5px;
+}
+#update_worker_form{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.update_worker_form form input,
+.update_worker_form form select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    font-size: 14px;
+    margin: 6px 0;
+}
+.update_worker_form form button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 6px 0;
+}
+
+.update_worker_form form button[type="submit"] {
+    background-color: #1D1E2C;
+    color: white;
+}
+
+.update_worker_form form button[type="submit"]:hover {
+    background-color: #393b58;
+}
+
+.update_worker_form form .cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.update_worker_form form .cancel-btn:hover {
+    background-color: #d35050;
+}
+/*  */
+.add_worker_form {
+    height: max-content;
+    padding: 20px 20px;
+    width: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+    border-radius: 4px;
+}
+
+.add_worker_form h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #1D1E2C;
+}
+
+.add_worker_form form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+}
+
+.add_worker_form form input,
+.add_worker_form form select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #1D1E2C;
+    border-radius: 3px;
+    font-size: 14px;
+}
+
+.add_worker_form form button {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add_worker_form form button[type="submit"] {
+    background-color: #1D1E2C;
+    color: white;
+}
+
+.add_worker_form form button[type="submit"]:hover {
+    background-color: #393b58;
+}
+
+.add_worker_form form .cancel-btn {
+    background-color: #f44336;
+    color: white;
+}
+
+.add_worker_form form .cancel-btn:hover {
+    background-color: #d35050;
+}
+
+.delete_worker_btn{
+    width: 70px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #f44336;
+    color: white;
+}
+.delete_worker_btn:hover {
+    background-color: #d15c5c;
+}
+.update_worker_btn{
+    width: 70px;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+    background-color: #cacaca;
+}
+.update_worker_btn:hover {
+    background-color: #dfdfdf;
+}

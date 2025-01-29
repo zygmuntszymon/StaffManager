@@ -1,16 +1,84 @@
 .header{
     width: 100vw;
+    overflow: hidden;
     height: 65px;
     display: flex;
     align-items: center;
-    position: absolute;
+    position: fixed;
     top: 0;
     background-color: white;
     padding: 10px 20px;
-    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    z-index: 100;
+}
+.header_container{
+    position: relative;
+    height: 100%;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .header_logo{
     color: white;
     font-size: 12px;
     user-select: none;
+}
+.header_menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+.header_menu > * {
+    margin: 1rem;
+}
+.header_menu > a{
+    color: #393b58;
+    padding: 6px 0;
+}
+.header_menu > a.selected{
+    color:#1D1E2C;
+    border-bottom: 2px solid #1D1E2C;
+}
+
+#btn_logout{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    padding: 10px 20px;
+    background-color: #1D1E2C;
+    color: white;
+    outline: none;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+#btn_logout:hover{
+    background-color: #393b58;
+}
+#header_points{
+    padding: 3px 15px;
+    background-color: rgba(255, 217, 0, 0.15);
+    font-weight: bold;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#header_points * {
+    margin: 5px;
+}
+#header_points i {
+    color: gold;
+    font-size: 24px;
+}
+.header_link{
+    transition: all 0.2;
+}
+.header_link:hover {
+    color: #393b58;
 }
