@@ -33,6 +33,11 @@
 .zadanie_status{
     width: 200px;
 }
+
+.zadanie_data{
+    width: 200px;
+}
+
 .zadanie_pracownik{
     width: 200px;
 }
