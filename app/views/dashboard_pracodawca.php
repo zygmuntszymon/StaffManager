@@ -1,7 +1,8 @@
 <?php
-include '../app/views/header.php';
-require_once __DIR__ . '/../app/utils/session.php';
-require_once __DIR__ . '/../app/models/User.php';
+include './header.php';
+require_once dirname(__DIR__) . '/utils/session.php';
+require_once dirname(__DIR__) . '/models/User.php';
+require_once dirname(__DIR__) . '/models/Points.php';
 Session::start();
 
 if (!Session::isLoggedIn()) {
@@ -203,9 +204,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
         let message = "";
 
         // Walidacja imienia i nazwiska (tylko litery)
-        if (!/^[a-zA-Z]+$/.test(imie)) {
+        if (!/^\p{L}+$/u.test(imie)) {
             message = "Imię może zawierać tylko litery.";
-        } else if (!/^[a-zA-Z]+$/.test(nazwisko)) {
+        } else if (!/^\p{L}+$/u.test(nazwisko)) {
             message = "Nazwisko może zawierać tylko litery.";
         }
         // Walidacja PESEL (11 cyfr)

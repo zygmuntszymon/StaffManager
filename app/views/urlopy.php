@@ -1,7 +1,7 @@
 <?php
-include '../app/views/header.php';
-require_once __DIR__ . '/../app/models/Leaves.php'; // Załaduj klasę Leaves
-require_once __DIR__ . '/../app/utils/config.php'; // Połączenie z bazą danych
+include './header.php';
+require_once dirname(__DIR__) . '/models/Leaves.php'; // Załaduj klasę Leaves
+require_once dirname(__DIR__) . '/utils/config.php'; // Połączenie z bazą danych
 
 if (!isset($_SESSION['user_id'])) {
     die("You are not logged in as an employee.");
@@ -9,6 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 
 $user_id = $_SESSION['user_id'];
 $leaves = new Leaves($pdo); // Create an instance of the Leaves class
+$msg = "";
 
 // Get taken dates (global and for the employee)
 $takenDates = $leaves->getTakenDates();
@@ -19,15 +20,14 @@ $allTakenDates = array_merge($takenDates, $employeeTakenDates);
 
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $selectedDates = $_POST['dates']; // Dates selected by the user
-
+    $selectedDates = $_POST['dates']; // Daty wybrane przez użytkownika
     try {
         if ($leaves->submitLeaveRequest($user_id, $selectedDates)) {
+            echo "<script>alert('Złożono wniosek o urlop!');</script>";
             header("location: urlopy.php");
-            echo "<alert>Złożono wniosek o urlop!</alert>";
         }
     } catch (Exception $e) {
-        echo $e->getMessage();
+        $msg = $e->getMessage(); // Przechowujemy komunikat błędu w zmiennej
     }
 }
 ?>
@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
     <div class="leave_panel">
         <h1>Twoje urlopy</h1>
-        <?php include '../app/utils/calendar.php'; ?>
+        <?php include '../utils/calendar.php'; ?>
 
         <h1>Wniosek urlopowy</h1>
         <form method="POST" action="urlopy.php" onsubmit="return validateForm()" class="wniosek">
@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="leave_submit">Złóż wniosek</button>
         </form>
 
-        <div id="error-message" class="error"></div>
+        <div id="error-message" class="error"><?php echo $msg; ?></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -94,8 +94,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 document.getElementById('error-message').textContent = "Musisz wybrać co najmniej jeden dzień.";
                 return false;
             }
-            document.getElementById('error-message').textContent = "";
+            document.getElementById('error-message').textContent = ""; // Czyścimy komunikat błędu, gdy wszystko jest poprawne
             return true;
+        }
+
+        // Sprawdzamy, czy w PHP jest jakiś komunikat błędu
+        const errorMessage = "<?php echo $msg; ?>";
+        if (errorMessage) {
+            document.getElementById('error-message').textContent = errorMessage;
         }
     </script>
 </body>

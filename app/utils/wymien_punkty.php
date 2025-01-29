@@ -28,7 +28,7 @@ if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') {
         $_SESSION['punkty'] = $pointsModel->getUserPoints($userId);
     }
 
-    header('Location: ../../public/nagrody.php');
+    header('Location: ../../app/views/nagrody.php');
     exit;
 }
 ?>

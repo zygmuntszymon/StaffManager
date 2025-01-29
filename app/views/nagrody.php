@@ -1,8 +1,8 @@
 <?php
-include '../app/views/header.php';
-require_once __DIR__ . '/../app/utils/session.php';
-require_once __DIR__ . '/../app/models/User.php';
-require_once __DIR__ . '/../app/models/Points.php';
+include './header.php';
+require_once dirname(__DIR__) . '/utils/session.php';
+require_once dirname(__DIR__) . '/models/User.php';
+require_once dirname(__DIR__) . '/models/Points.php';
 
 Session::start();
 $pdo = new PDO("mysql:host=localhost;dbname=staffmanager_db", "root", "");
@@ -27,7 +27,7 @@ $punkty = $pointsModel->getUserPoints($userId);
                                             echo '0';
                                         } ?> zł <?php if ($bonus == 1000) echo '<i>(MAX)</i>' ?></strong></p>
         </div>
-        <form action="../app/utils/wymien_punkty.php" method="post">
+        <form action="../utils/wymien_punkty.php" method="post">
             <input type="hidden" name="nagroda_id" value="premia">
             <input type="hidden" name="punkty" value="500">
             <button type="submit" class="nagroda-button"
@@ -46,7 +46,7 @@ $punkty = $pointsModel->getUserPoints($userId);
             <p class="nagroda-title"><i class="fa-solid fa-bed"></i> Dodatkowy dzień wolny</p>
             <p>Twoje dodatkowe dni wolne: <strong><?php echo $dni_wolne; ?> <?php if ($dni_wolne == 3) echo '<i>(MAX)</i>' ?><?php if ($dni_wolne == 0) echo '0' ?></strong></p>
         </div>
-        <form action="../app/utils/wymien_punkty.php" method="post">
+        <form action="../utils/wymien_punkty.php" method="post">
             <input type="hidden" name="nagroda_id" value="dzien-wolny">
             <input type="hidden" name="punkty" value="1500">
             <button type="submit" class="nagroda-button"

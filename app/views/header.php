@@ -14,14 +14,14 @@ if (Session::isLoggedIn()) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/css/header.css">
-    <link rel="stylesheet" href="../public/css/main.css">
-    <link rel="stylesheet" href="../public/css/login.css">
-    <link rel="stylesheet" href="../public/css/pracownik.css">
-    <link rel="stylesheet" href="../public/css/pracodawca.css">
-    <link rel="stylesheet" href="../public/css/nagrody.css">
-    <link rel="stylesheet" href="../public/css/wnioski.css">
-    <link rel="stylesheet" href="../public/css/zadania.css">
+    <link rel="stylesheet" href="../../public/css/header.css">
+    <link rel="stylesheet" href="../../public/css/main.css">
+    <link rel="stylesheet" href="../../public/css/login.css">
+    <link rel="stylesheet" href="../../public/css/pracownik.css">
+    <link rel="stylesheet" href="../../public/css/pracodawca.css">
+    <link rel="stylesheet" href="../../public/css/nagrody.css">
+    <link rel="stylesheet" href="../../public/css/wnioski.css">
+    <link rel="stylesheet" href="../../public/css/zadania.css">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>StaffManager</title>
@@ -57,7 +57,7 @@ if (Session::isLoggedIn()) {
     <div class="header">
         <div class="header_container">
             <div class="header_logo">
-                <img src="./media/logo.png" alt="" style="width:200px">
+                <img src="../../public/media/logo.png" alt="" style="width:200px">
             </div>
             <?php
             if (Session::isLoggedIn()) { ?>
@@ -67,7 +67,7 @@ if (Session::isLoggedIn()) {
                     $taskPages = ['zadania.php', 'zadania_realizacja.php', 'zadania_ukonczone.php'];
 
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') { ?>
-                        <a href="dashboard_pracownik.php" class="header_link <?= ($currentFileName == 'dashboard_pracownik.php') ? 'selected' : ''; ?>"><i class="fa-solid fa-list-check"></i> Zadania</a>
+                        <a href="../views/dashboard_pracownik.php" class="header_link <?= ($currentFileName == 'dashboard_pracownik.php') ? 'selected' : ''; ?>"><i class="fa-solid fa-list-check"></i> Zadania</a>
                         <a href="nagrody.php" class="header_link <?= ($currentFileName == 'nagrody.php') ? 'selected' : ''; ?>"> <i class="fa-solid fa-trophy"></i> Nagrody</a>
                         <a href="urlopy.php" class="header_link <?= ($currentFileName == 'urlopy.php') ? 'selected' : ''; ?>"> <i class="fa-solid fa-file"></i> Urlopy</a>
                         <div id="header_points">
@@ -77,7 +77,7 @@ if (Session::isLoggedIn()) {
                     }
 
                     if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracodawca') { ?>
-                        <a href="dashboard_pracodawca.php" class="header_link <?= ($currentFileName == 'dashboard_pracodawca.php') ? 'selected' : ''; ?>"> <i class="fa-solid fa-user-tie"></i> Pracownicy</a>
+                        <a href="../views/dashboard_pracodawca.php" class="header_link <?= ($currentFileName == 'dashboard_pracodawca.php') ? 'selected' : ''; ?>"> <i class="fa-solid fa-user-tie"></i> Pracownicy</a>
                         <a href="zadania.php" class="header_link <?= in_array($currentFileName, $taskPages) ? 'selected' : ''; ?>"> <i class="fa-solid fa-file-lines"></i> Zadania</a>
                         <a href="urlopy_pracownikow.php" class="header_link <?= ($currentFileName == 'urlopy_pracownikow.php') ? 'selected' : ''; ?>"> <i class="fa-solid fa-calendar-days"></i> Urlopy Pracowników</a>
                     <?php

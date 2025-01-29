@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../app/controllers/AuthController.php';
-require_once __DIR__ . '/../app/utils/session.php';
-require_once __DIR__ . '/../app/models/Points.php'; // Załaduj model Points
+require_once dirname(__DIR__) . '/controllers/AuthController.php';
+require_once dirname(__DIR__) . '/utils/session.php';
+require_once dirname(__DIR__) . '/models/Points.php'; // Załaduj model Points
 
 Session::start(); // Rozpocznij sesję
 

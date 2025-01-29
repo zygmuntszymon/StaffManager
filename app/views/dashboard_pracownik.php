@@ -1,8 +1,9 @@
 <?php
-include '../app/views/header.php';
-require_once __DIR__ . '/../app/utils/session.php';
-require_once __DIR__ . '/../app/models/User.php';
-require_once __DIR__ . '/../app/models/Tasks.php';
+include './header.php';
+require_once dirname(__DIR__) . '/utils/session.php';
+require_once dirname(__DIR__) . '/models/User.php';
+require_once dirname(__DIR__) . '/models/Tasks.php';
+require_once dirname(__DIR__) . '/models/Points.php';
 
 Session::start();
 

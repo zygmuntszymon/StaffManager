@@ -1,7 +1,7 @@
 <?php
-include '../app/views/header.php';
-require_once __DIR__ . '/../app/utils/config.php';
-require_once __DIR__ . '/../app/models/Leaves.php';
+include './header.php';
+require_once dirname(__DIR__) . '/utils/config.php';
+require_once dirname(__DIR__) . '/models/Leaves.php';
 
 // Sprawdzenie, czy użytkownik jest zalogowany
 if (!isset($_SESSION['user_id'])) {
@@ -123,7 +123,7 @@ $hasEmployeeOnLeave = !empty($employeesOnLeave) && $employeesOnLeave[0]['id'] ==
                 this.classList.add('selected_');
 
                 // Wysłanie AJAX request do serwera
-                fetch('../app/utils/getLeaves.php?date=' + date)
+                fetch('../utils/getLeaves.php?date=' + date)
                     .then(response => {
                         if (!response.ok) {
                             throw new Error('Network response was not ok');
