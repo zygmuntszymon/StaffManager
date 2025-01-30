@@ -9,7 +9,7 @@ class Tasks {
     }
 
     public function markTaskAsDone($taskId, $userId) {
-        $stmt = $this->pdo->prepare("UPDATE zadania SET status = 'ukończone' WHERE id = ?");
+        $stmt = $this->pdo->prepare("UPDATE zadania SET status = 'ukończone', data_zakonczenia = CURDATE() WHERE id = ?");
         $result = $stmt->execute([$taskId]);
         
         if ($result) {

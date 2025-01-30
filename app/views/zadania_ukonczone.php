@@ -48,16 +48,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])
             <span>Opis</span>
             <span>Termin</span>
             <span>Punkty</span>
+            <span>Wykonano</span>
             <span>Status</span>
+            <span>Pracownik</span>
             <span>Akcje</span>
         </div>
         <?php if (!empty($tasksToBeDone)) { ?>
-            <?php foreach ($tasksToBeDone as $task) { ?>
+            <?php foreach ($tasksToBeDone as $task) {
+                $workerName = $tasksModel->getNameAndSurnameWorker($task['id']); ?>
                 <div class='zadanie'>
                     <span class='zadanie_nazwa'><?= htmlspecialchars($task['opis']) ?></span>
                     <span class='zadanie_deadline'><?= htmlspecialchars($task['deadline']) ?></span>
                     <span class='zadanie_punkty'><?= htmlspecialchars($task['ilosc_punkty']) ?> <i class="fa-solid fa-trophy"></i></span>
+                    <span class='zadanie_data'><?= htmlspecialchars($task['data_zakonczenia']) ?></span>
                     <span class='zadanie_status'><?= htmlspecialchars($task['status']) ?></span>
+                    <span class='zadanie_pracownik'><?= htmlspecialchars($workerName) ?></span>
                     <span class='zadanie_akcje'>
                         <button type="button" class="delete_btn--icon" onclick="openModalDelete(<?= $task['id'] ?>)"><i class="fa-solid fa-trash-can"></i></button>
                     </span>
