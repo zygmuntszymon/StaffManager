@@ -14,13 +14,13 @@ $tasksToBeDone = $tasksModel->getTasksByStatus('ukończone');
 $message = "";
 
 
-// Usuwanie Pracownika
+// usuwanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])) {
     $id = $_POST['id'];
 
     if ($tasksModel->deleteTask($id)) {
         $message = "Zadanie zostało usunięte pomyślnie!";
-        // Odświeżenie listy $tasks
+        // odświeżenie listy
         $tasksToBeDone = $tasksModel->getTasksByStatus('ukończone');
     } else {
         $message = "Wystąpił błąd podczas usuwania pracownika.";
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])
     </div>
 
 
-    <!-- Okno Modalne do usuwania pracownika-->
+    <!-- Okno Modalne usuwania -->
     <div id="delete_worker_modal" class="modal" style="display: none;">
         <div class="delete_worker_modal">
             <form id="delete_worker_form" method="POST" action="">

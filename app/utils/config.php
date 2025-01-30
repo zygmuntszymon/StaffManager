@@ -12,3 +12,4 @@ try {
     die("Błąd połączenia z bazą danych: " . $e->getMessage());
 }
 ?>
+getLeaves

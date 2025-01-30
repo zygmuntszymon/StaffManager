@@ -3,43 +3,43 @@ include './header.php';
 require_once dirname(__DIR__) . '/utils/config.php';
 require_once dirname(__DIR__) . '/models/Leaves.php';
 
-// Sprawdzenie, czy użytkownik jest zalogowany
+// sprawdza czy użytkownik jest zalogowany
 if (!isset($_SESSION['user_id'])) {
-    die("Błąd: Brak ID użytkownika.");
+    die("Błąd: Użytkownik nie jest zalogowany!.");
 }
 $employeeId = $_SESSION['user_id'];
 
-// Pobieranie miesiąca i roku (domyślnie bieżący)
+// pobiera miesiąc i rok
 $month = isset($_GET['month']) ? intval($_GET['month']) : date('m');
 $year = isset($_GET['year']) ? intval($_GET['year']) : date('Y');
 
-// Pobieranie dni urlopowych użytkownika (za pomocą obiektu Leaves)
+// pobiera dni urlopowe pracownika
 $leavesModel = new Leaves($pdo);
 $takenDates = $leavesModel->getEmployeeTakenDates($employeeId);
 
-// Pobieranie wszystkich dni urlopowych
+// pobiera wszystkie dni urlopowe
 $allTakenDates = $leavesModel->getTakenDates();
 
-// Usunięcie spacji z dat w tablicy $takenDates
+// usunięcie spacji z dat w tablicy $takenDates
 $takenDates = array_map('trim', $takenDates);
 $allTakenDates = array_map('trim', $allTakenDates);
 
-// Tworzenie znacznika czasu dla pierwszego dnia miesiąca
+// tworzy znacznik czasu dla pierwszego dnia miesiąca
 $firstDayOfMonth = strtotime("$year-$month-01");
 $daysInMonth = date('t', $firstDayOfMonth);
-$firstWeekday = date('N', $firstDayOfMonth); // (1 = Pn, 7 = Nd)
+$firstWeekday = date('N', $firstDayOfMonth);
 
-// Poprzedni i następny miesiąc do nawigacji
+// poprzedni miesiąc
 $prevMonth = ($month == 1) ? 12 : $month - 1;
 $prevYear = ($month == 1) ? $year - 1 : $year;
-
+// następny miesiąc
 $nextMonth = ($month == 12) ? 1 : $month + 1;
 $nextYear = ($month == 12) ? $year + 1 : $year;
 
-// Obsługa kliknięcia w datę
+// sprawdzanie dat przez kliknięcie
 $selectedDate = isset($_GET['date']) ? $_GET['date'] : null;
 $employeesOnLeave = $selectedDate ? $leavesModel->getEmployeesOnLeave($selectedDate) : [];
-$hasEmployeeOnLeave = !empty($employeesOnLeave) && $employeesOnLeave[0]['id'] == $employeeId; // Sprawdzamy, czy aktualny pracownik ma urlop w wybranym dniu
+$hasEmployeeOnLeave = !empty($employeesOnLeave) && $employeesOnLeave[0]['id'] == $employeeId; // sprawdza czy pracownik ma urlop w wybranym dniu
 ?>
 <div class="calendar-container panel" style="padding-top: 11rem !important;">
     <div class="calendar-header">
@@ -70,12 +70,11 @@ $hasEmployeeOnLeave = !empty($employeesOnLeave) && $employeesOnLeave[0]['id'] ==
                     if (($row === 0 && $col < $firstWeekday) || $day > $daysInMonth) {
                         echo "<td class='empty'></td>";
                     } else {
-                        // Tworzenie $dateString
                         $dateString = sprintf("%04d-%02d-%02d", $year, $month, $day);
 
-                        // Sprawdzanie, czy dzień jest dniem urlopowym
+                        // sprawdza czy w ten dzień można wziąć urlop
                         $isLeaveDay = in_array($dateString, $allTakenDates);
-                        $isSelected = $dateString == $selectedDate ? 'selected_' : ''; // Zaznaczenie wybranego dnia
+                        $isSelected = $dateString == $selectedDate ? 'selected_' : ''; // wybieranie dnia
 
                         echo "<td class='" . ($isLeaveDay ? "leave_day-- " : "") . "$isSelected' data-date='$dateString'>$day</td>";
                         $day++;
@@ -114,19 +113,16 @@ $hasEmployeeOnLeave = !empty($employeesOnLeave) && $employeesOnLeave[0]['id'] ==
             var date = this.getAttribute('data-date');
             if (date) {
                 console.log(date)
-                // Usunięcie klasy 'selected' ze wszystkich komórek
                 document.querySelectorAll('.calendar-table td.selected_').forEach(function(cell) {
                     cell.classList.remove('selected_');
                 });
 
-                // Dodanie klasy 'selected' do klikniętej komórki
                 this.classList.add('selected_');
 
-                // Wysłanie AJAX request do serwera
                 fetch('../utils/getLeaves.php?date=' + date)
                     .then(response => {
                         if (!response.ok) {
-                            throw new Error('Network response was not ok');
+                            throw new Error('Brak odpowiedzi od serwera');
                         }
                         return response.json();
                     })

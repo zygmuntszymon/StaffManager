@@ -19,6 +19,7 @@ $zadania = $tasksModel->getTasksForUser($user['id']);
 $hasPendingTasks = false;
 $message = "";
 
+// wykonanie zadania
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_done'])) {
     $taskId = $_POST['task_id'];
 
@@ -58,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_done'])) {
                     $hasPendingTasks = true;
                     echo "<div class='zadanie'>";
                     echo "<span class='zadanie_opis'>" . htmlspecialchars($zadanie['opis']) . "</span>";
+                    echo "<span class='zadanie_punkty'>" . htmlspecialchars($zadanie['ilosc_punkty']). '<i class="fa-solid fa-trophy"></i>' . "</span>";
                     echo "<div class='zadanie__akcje'>";
                     echo "<span class='deadline'>" . htmlspecialchars($zadanie['deadline']) . "</span>";
                     ?>
@@ -85,7 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['mark_done'])) {
                     $hasCompletedTasks = true;
                     echo "<div class='zadanie'>";
                     echo "<span class='zadanie_opis'>" . htmlspecialchars($zadanie['opis']) . "</span>";
+                    echo "<span class='zadanie_punkty'>" . htmlspecialchars($zadanie['ilosc_punkty']). '&nbsp;<i class="fa-solid fa-trophy"></i>' . "</span>";
                     echo "<span class='status'>" . htmlspecialchars($zadanie['status']) . "</span>";
+                    echo "<span class='deadline'>" . htmlspecialchars($zadanie['data_zakonczenia']) . "</span>";
                     echo "</div>";
                 }
             }
