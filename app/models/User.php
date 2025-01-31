@@ -46,11 +46,27 @@ class User {
         return $stmt->execute([$imie, $nazwisko, $pesel, $rola, $login, $hashedPassword, $data_zatrudnienia]);
     }
     public function deleteUser($id) {
-        $stmt = $this->pdo->prepare("
-            DELETE FROM pracownicy 
-            WHERE id = ?
-            ");
-        return $stmt->execute([$id]);
+        $this->pdo->beginTransaction();
+
+        try {
+            $stmt = $this->pdo->prepare("DELETE FROM urlopy WHERE pracownik_id = ?");
+            $stmt->execute([$id]);
+
+            $stmt = $this->pdo->prepare("DELETE FROM dodatkowe_dni_wolne WHERE pracownik_id = ?");
+            $stmt->execute([$id]);
+
+            $stmt = $this->pdo->prepare("DELETE FROM premie WHERE pracownik_id = ?");
+            $stmt->execute([$id]);
+
+            $stmt = $this->pdo->prepare("DELETE FROM pracownicy WHERE id = ?");
+            $stmt->execute([$id]);
+
+            $this->pdo->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->pdo->rollBack();
+            throw $e;
+        }
     }
 
     public function updateUser($id, $imie, $nazwisko, $pesel, $rola, $haslo)
