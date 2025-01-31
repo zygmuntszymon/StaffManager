@@ -2,26 +2,29 @@
 
 require_once __DIR__ . '/../utils/config.php';
 
-class Leaves {
+class Leaves
+{
     private $pdo;
 
-    public function __construct($pdo) {
+    public function __construct($pdo)
+    {
         $this->pdo = $pdo;
     }
 
-    public function getEmployeesOnLeave($date) {
-        // Dopasowanie daty w ciągu tekstowym
+    public function getEmployeesOnLeave($date)
+    {
         $stmt = $this->pdo->prepare("
             SELECT p.id, p.imie, p.nazwisko
             FROM urlopy u
             JOIN pracownicy p ON u.pracownik_id = p.id
             WHERE u.daty_urlopu LIKE :date
         ");
-        // Użycie % dla wyszukania daty w ciągu tekstowym
-        $stmt->execute([':date' => '%'.$date.'%']);
+        $stmt->execute([':date' => '%' . $date . '%']);
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    public function submitLeaveRequest($employeeId, $leaveDates) {
+
+    public function submitLeaveRequest($employeeId, $leaveDates)
+    {
         if (empty($leaveDates)) {
             throw new Exception("Musisz wybrać co najmniej jeden dzień.");
         }
@@ -35,7 +38,10 @@ class Leaves {
 
         $this->validateDates($employeeId, $leaveDates);
 
-        $stmt = $this->pdo->prepare("INSERT INTO urlopy (pracownik_id, daty_urlopu) VALUES (?, ?)");
+        $stmt = $this->pdo->prepare("
+            INSERT INTO urlopy (pracownik_id, daty_urlopu) 
+            VALUES (?, ?)
+            ");
         $stmt->execute([$employeeId, $leaveDates]);
 
         $this->deductAvailableDays($employeeId, $requiredDays);
@@ -43,9 +49,10 @@ class Leaves {
         return true;
     }
 
-    private function validateDates($employeeId, $leaveDates) {
+    private function validateDates($employeeId, $leaveDates)
+    {
         $selectedDates = explode(',', $leaveDates);
-    
+
         $takenDates = $this->getEmployeeTakenDates($employeeId);
         foreach ($selectedDates as $date) {
             if (in_array($date, $takenDates)) {
@@ -54,8 +61,13 @@ class Leaves {
         }
     }
 
-    public function getEmployeeTakenDates($employeeId) {
-        $stmt = $this->pdo->prepare("SELECT daty_urlopu FROM urlopy WHERE pracownik_id = ?");
+    public function getEmployeeTakenDates($employeeId)
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT daty_urlopu 
+            FROM urlopy 
+            WHERE pracownik_id = ?
+            ");
         $stmt->execute([$employeeId]);
         $results = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
@@ -67,8 +79,12 @@ class Leaves {
         return $takenDates;
     }
 
-    public function getTakenDates() {
-        $stmt = $this->pdo->query("SELECT daty_urlopu FROM urlopy");
+    public function getTakenDates()
+    {
+        $stmt = $this->pdo->query("
+            SELECT daty_urlopu 
+            FROM urlopy
+            ");
         $results = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
         $takenDates = [];
@@ -79,21 +95,36 @@ class Leaves {
         return $takenDates;
     }
 
-    public function getTotalAvailableDays($employeeId) {
+    public function getTotalAvailableDays($employeeId)
+    {
 
-        $stmt = $this->pdo->prepare("SELECT dostepne_dni_wolne FROM pracownicy WHERE id = ?");
+        $stmt = $this->pdo->prepare("
+            SELECT dostepne_dni_wolne 
+            FROM pracownicy 
+            WHERE id = ?
+            ");
         $stmt->execute([$employeeId]);
         $baseDays = $stmt->fetchColumn();
 
-        $stmt = $this->pdo->prepare("SELECT SUM(ilosc) FROM dodatkowe_dni_wolne WHERE pracownik_id = ?");
+        $stmt = $this->pdo->prepare("
+            SELECT SUM(ilosc) 
+            FROM dodatkowe_dni_wolne 
+            WHERE pracownik_id = ?
+            ");
         $stmt->execute([$employeeId]);
         $additionalDays = $stmt->fetchColumn() ?? 0;
 
         return $baseDays + $additionalDays;
     }
 
-    private function deductAvailableDays($employeeId, $daysToDeduct) {
-        $stmt = $this->pdo->prepare("SELECT id, ilosc FROM dodatkowe_dni_wolne WHERE pracownik_id = ? ORDER BY id");
+    private function deductAvailableDays($employeeId, $daysToDeduct)
+    {
+        $stmt = $this->pdo->prepare("
+            SELECT id, ilosc 
+            FROM dodatkowe_dni_wolne 
+            WHERE pracownik_id = ? 
+            ORDER BY id
+            ");
         $stmt->execute([$employeeId]);
         $additionalDays = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -104,10 +135,17 @@ class Leaves {
             $newAmount = $dayRecord['ilosc'] - $daysToUse;
 
             if ($newAmount > 0) {
-                $stmt = $this->pdo->prepare("UPDATE dodatkowe_dni_wolne SET ilosc = ? WHERE id = ?");
+                $stmt = $this->pdo->prepare("
+                UPDATE dodatkowe_dni_wolne 
+                SET ilosc = ? 
+                WHERE id = ?
+                ");
                 $stmt->execute([$newAmount, $dayRecord['id']]);
             } else {
-                $stmt = $this->pdo->prepare("DELETE FROM dodatkowe_dni_wolne WHERE id = ?");
+                $stmt = $this->pdo->prepare("
+                DELETE FROM dodatkowe_dni_wolne 
+                WHERE id = ?
+                ");
                 $stmt->execute([$dayRecord['id']]);
             }
 
@@ -115,7 +153,11 @@ class Leaves {
         }
 
         if ($daysToDeduct > 0) {
-            $stmt = $this->pdo->prepare("UPDATE pracownicy SET dostepne_dni_wolne = dostepne_dni_wolne - ? WHERE id = ?");
+            $stmt = $this->pdo->prepare("
+                UPDATE pracownicy 
+                SET dostepne_dni_wolne = dostepne_dni_wolne - ? 
+                WHERE id = ?
+                ");
             $stmt->execute([$daysToDeduct, $employeeId]);
         }
     }

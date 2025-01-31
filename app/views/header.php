@@ -27,12 +27,12 @@ if (Session::isLoggedIn()) {
     <title>StaffManager</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        // Funkcja sprawdzająca, czy użytkownik jest zalogowany i czy pracownik
+        // sprawdza czy użytkownik jest zalogowany i jest pracownikiem
         function isLoggedInAndEmployee() {
             return <?php echo json_encode(Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik'); ?>;
         }
 
-        // Funkcja aktualizująca punkty użytkownika
+        // aktualizowanie punktów użytkownika
         function updatePoints() {
             if (isLoggedInAndEmployee()) {
                 $.ajax({
@@ -40,13 +40,14 @@ if (Session::isLoggedIn()) {
                     method: 'POST',
                     success: function(response) {
                         console.log('Punkty zostały zaktualizowane: ' + response);
-                        $('#user-points').text(response); // Aktualizacja punktów w nagłówku
+                        // aktualizacja punktów
+                        $('#user-points').text(response);
                     }
                 });
             }
         }
 
-        // Uruchom funkcję co 5 sekund, jeśli użytkownik jest zalogowany
+        // uruchamia funkcję co 5 sekund i sprawdz czy użytkownik jest zalogowany
         if (isLoggedInAndEmployee()) {
             setInterval(updatePoints, 5000);
         }

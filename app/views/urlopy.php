@@ -1,33 +1,30 @@
 <?php
 include './header.php';
-require_once dirname(__DIR__) . '/models/Leaves.php'; // Załaduj klasę Leaves
-require_once dirname(__DIR__) . '/utils/config.php'; // Połączenie z bazą danych
+require_once dirname(__DIR__) . '/models/Leaves.php';
+require_once dirname(__DIR__) . '/utils/config.php';
 
 if (!isset($_SESSION['user_id'])) {
-    die("You are not logged in as an employee.");
+    die("Nie jesteś zalgowany jako pracownik.");
 }
 
 $user_id = $_SESSION['user_id'];
-$leaves = new Leaves($pdo); // Create an instance of the Leaves class
+$leaves = new Leaves($pdo);
 $msg = "";
 
-// Get taken dates (global and for the employee)
 $takenDates = $leaves->getTakenDates();
 $employeeTakenDates = $leaves->getEmployeeTakenDates($user_id);
 
-// Merge and format dates properly
 $allTakenDates = array_merge($takenDates, $employeeTakenDates);
 
-// Handle form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $selectedDates = $_POST['dates']; // Daty wybrane przez użytkownika
+    $selectedDates = $_POST['dates']; // daty wybrane przez użytkownika
     try {
         if ($leaves->submitLeaveRequest($user_id, $selectedDates)) {
             echo "<script>alert('Złożono wniosek o urlop!');</script>";
             header("location: urlopy.php");
         }
     } catch (Exception $e) {
-        $msg = $e->getMessage(); // Przechowujemy komunikat błędu w zmiennej
+        $msg = $e->getMessage(); // komunikat błędu w zmiennej
     }
 }
 ?>
@@ -64,22 +61,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script>
-        // Convert PHP date strings to JavaScript Date objects for taken dates
         const takenDates = <?php echo json_encode($allTakenDates); ?>.map(date => {
             return new Date(date);
         });
-
-        // Initialize the calendar
         const calendar = flatpickr("#dates", {
-            mode: "multiple", // Allows selecting multiple dates
-            dateFormat: "Y-m-d", // Date format
-            minDate: "today", // Disables past dates
+            mode: "multiple",
+            dateFormat: "Y-m-d",
+            minDate: "today",
             disable: [
-                // Disables weekends
                 function(date) {
-                    return (date.getDay() === 0 || date.getDay() === 6); // 0 = Sunday, 6 = Saturday
+                    return (date.getDay() === 0 || date.getDay() === 6);
                 },
-                // Disable taken dates
                 ...takenDates
             ],
             onChange: function(selectedDates, dateStr, instance) {
@@ -87,18 +79,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         });
 
-        // Form validation before submission
         function validateForm() {
             const selectedDates = calendar.selectedDates;
             if (selectedDates.length === 0) {
                 document.getElementById('error-message').textContent = "Musisz wybrać co najmniej jeden dzień.";
                 return false;
             }
-            document.getElementById('error-message').textContent = ""; // Czyścimy komunikat błędu, gdy wszystko jest poprawne
+            document.getElementById('error-message').textContent = "";
             return true;
         }
 
-        // Sprawdzamy, czy w PHP jest jakiś komunikat błędu
         const errorMessage = "<?php echo $msg; ?>";
         if (errorMessage) {
             document.getElementById('error-message').textContent = errorMessage;

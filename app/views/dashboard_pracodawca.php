@@ -14,7 +14,7 @@ $user = $userModel->getUserByLogin($_SESSION['login']);
 $users = $userModel->getAllUsers();
 $message = "";
 
-// Dodawanie Pracownika
+// dodawanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_worker_btn'])) {
     $imie = $_POST['imie'];
     $nazwisko = $_POST['nazwisko'];
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_worker_btn'])) {
     }
 }
 
-// Usuwanie Pracownika
+// usuwanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_worker_btn'])) {
     $id = $_POST['id'];
 
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_worker_btn']))
     }
 }
 
-// Edytowanie Pracownika
+// edytowanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn'])) {
     $id = $_POST['id'];
     $imie = $_POST['imie'];
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
                         <span class='pracownik_nazwisko'><?= htmlspecialchars($user['nazwisko']) ?></span>
                         <span class='pracownik_imie'><?= htmlspecialchars($user['imie']) ?></span>
                         <span class='pracownik_rola'><?= htmlspecialchars($user['rola']) ?></span>
-                        <span class='pracownik_punkty'><?= htmlspecialchars($user['punkty']) ?></span>
+                        <span class='pracownik_punkty'><?= htmlspecialchars($user['punkty']) ?><i class="fa-solid fa-trophy"></i></span>
                         <div class='pracownik_akcje'>
                             <button type="button" class="delete_btn--icon" onclick="openModalDelete(<?= $user['id'] ?>)"><i class="fa-solid fa-trash-can"></i></button>
                             <button type="button" class="update_btn--icon" onclick="openModalUpdate(
@@ -104,7 +104,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     </div>
 </div>
 
-<!-- Okno Modalne dla dodawania-->
+<!-- Okno Modalne dodwanie-->
 <div id="add_worker_modal" class="modal" style="display: none;">
     <div class="add_worker_form">
         <form id="add_Worker_form" method="POST" action="" onsubmit="return validateAddForm()">
@@ -126,7 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     </div>
 </div>
 
-<!-- Okno Modalne do usuwania pracownika-->
+<!-- Okno Modalne usuwania -->
 <div id="delete_worker_modal" class="modal" style="display: none;">
     <div class="delete_worker_modal">
         <form id="delete_worker_form" method="POST" action="">
@@ -143,7 +143,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     <?php echo $message ?>
 </div>
 
-<!-- Okno Modalne do edytowania pracownika-->
+<!-- Okno Modalne edytowania -->
 <div id="update_worker_modal" class="modal" style="display: none;">
     <div class="update_worker_form">
         <form id="update_worker_form" method="POST" action="" onsubmit="return validateUpdateForm()">
@@ -195,7 +195,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
     function closeModalUpdate() {
         document.getElementById('update_worker_modal').style.display = 'none';
     }
-    // Funkcja walidacji formularza dodawania pracownika
+    // walidacja dodawania
     function validateAddForm() {
         const imie = document.getElementById('imie').value;
         const nazwisko = document.getElementById('nazwisko').value;
@@ -203,29 +203,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
         const haslo = document.getElementById('haslo').value;
         let message = "";
 
-        // Walidacja imienia i nazwiska (tylko litery)
         if (!/^\p{L}+$/u.test(imie)) {
             message = "Imię może zawierać tylko litery.";
         } else if (!/^\p{L}+$/u.test(nazwisko)) {
             message = "Nazwisko może zawierać tylko litery.";
         }
-        // Walidacja PESEL (11 cyfr)
         else if (!/^\d{11}$/.test(pesel)) {
             message = "PESEL musi mieć dokładnie 11 cyfr.";
         }
-        // Walidacja hasła (minimum 8 znaków, litery i cyfry)
         else if (!/(?=.*[a-zA-Z])(?=.*\d).{8,}/.test(haslo)) {
             message = "Hasło musi mieć co najmniej 8 znaków oraz zawierać litery i cyfry.";
         }
 
         if (message) {
-            alert(message); // Wyświetl komunikat o błędzie
-            return false; // Zablokuj wysyłanie formularza
+            alert(message);
+            return false;
         }
-        return true; // Formularz jest poprawny
+        return true;
     }
 
-    // Funkcja walidacji formularza edycji pracownika
+    // walidacja edytcji
     function validateUpdateForm() {
         const imie = document.getElementById('update_imie').value;
         const nazwisko = document.getElementById('update_nazwisko').value;
@@ -233,25 +230,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_worker_btn']))
         const haslo = document.getElementById('update_haslo').value;
         let message = "";
 
-        // Walidacja imienia i nazwiska (tylko litery)
         if (!/^[a-zA-Z]+$/.test(imie)) {
             message = "Imię może zawierać tylko litery.";
         } else if (!/^[a-zA-Z]+$/.test(nazwisko)) {
             message = "Nazwisko może zawierać tylko litery.";
         }
-        // Walidacja PESEL (11 cyfr)
         else if (!/^\d{11}$/.test(pesel)) {
             message = "PESEL musi mieć dokładnie 11 cyfr.";
         }
-        // Walidacja hasła, jeśli jest wprowadzone
         else if (haslo && !/(?=.*[a-zA-Z])(?=.*\d).{8,}/.test(haslo)) {
             message = "Hasło musi mieć co najmniej 8 znaków oraz zawierać litery i cyfry.";
         }
 
         if (message) {
-            alert(message); // Wyświetl komunikat o błędzie
-            return false; // Zablokuj wysyłanie formularza
+            alert(message);
+            return false;
         }
-        return true; // Formularz jest poprawny
+        return true;
     }
 </script>

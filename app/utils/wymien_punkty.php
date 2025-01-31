@@ -21,7 +21,6 @@ if (Session::isLoggedIn() && $_SESSION['rola'] === 'pracownik') {
         if ($nagrodaId === 'premia') {
             $userModel->addBonus($userId, 200);
         } elseif ($nagrodaId === 'dzien-wolny') {
-            // Dodanie dodatkowego dnia wolnego
             $userModel->addDaysOff($userId);
         }
 

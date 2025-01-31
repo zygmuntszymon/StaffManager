@@ -23,27 +23,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_zadanie_btn'])) {
 
     if ($tasksModel->addTask($opis, $deadline, $ilosc_punkty, $status)) {
         $message = "Zadanie zostało dodane pomyślnie!";
-        // Odświeżenie listy $tasks
+        // odświeżenie listy
         $tasksToBeDone = $tasksModel->getTasksByStatus('do wykonania');
     } else {
         $message = "Wystąpił błąd podczas dodawania zadania.";
     }
 }
 
-// Usuwanie Pracownika
+// usuwanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_zadanie_btn'])) {
     $id = $_POST['id'];
 
     if ($tasksModel->deleteTask($id)) {
         $message = "Zadanie zostało usunięte pomyślnie!";
-        // Odświeżenie listy $tasks
+        // odświeżenie listy
         $tasksToBeDone = $tasksModel->getTasksByStatus('do wykonania');
     } else {
         $message = "Wystąpił błąd podczas usuwania pracownika.";
     }
 }
 
-// Edytowanie Pracownika
+// edytowanie Pracownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task_btn'])) {
     $id = $_POST['id'];
     $opis = $_POST['opis'];
@@ -58,14 +58,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_task_btn'])) {
         $message = "Wystąpił błąd podczas aktualizacji danych.";
     }
 }
-// Przypisywanie zadania
+// przypisywanie zadania dla Prcownika
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
     $pracownik_id = $_POST['pracownik_id'];
     $zadanie_id = $_POST['zadanie_id'];
 
     if ($tasksModel->taskForUser($pracownik_id, $zadanie_id)) {
         $message = "Zadanie zostało przypisane!";
-        // Odświeżenie listy $tasks
+        // odświeżenie listy
         $tasksToBeDone = $tasksModel->getTasksByStatus('do wykonania');
     } else {
         $message = "Wystąpił błąd podczas przypisania zadania.";
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         } ?>
     </div>
 
-    <!-- Okno Modalne dla dodawania-->
+    <!-- Okno Modalne dodawania-->
     <div id="add_worker_modal" class="modal" style="display: none;">
         <div class="add_worker_form">
             <form id="add_Worker_form" method="POST" action="">
@@ -140,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         </div>
     </div>
 
-    <!-- Okno Modalne do usuwania pracownika-->
+    <!-- Okno Modalne usuwania-->
     <div id="delete_worker_modal" class="modal" style="display: none;">
         <div class="delete_worker_modal">
             <form id="delete_worker_form" method="POST" action="">
@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         </div>
     </div>
 
-    <!-- Okno Modalne do edytowania pracownika-->
+    <!-- Okno Modalne edytowania -->
     <div id="update_worker_modal" class="modal" style="display: none;">
         <div class="update_worker_form">
             <form id="update_worker_form" method="POST" action="">
@@ -171,7 +171,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['przypisz_btn'])) {
         </div>
     </div>
 
-    <!-- Okno Modalne dla przypisania-->
+    <!-- Okno Modalne przypisania-->
     <div id="przypisz_modal" class="modal" style="display: none;">
         <div class="przypisz_modal">
             <form id="przypisz_modal" method="POST" action="">

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/config.php'; // Dodaj to, aby załadować połączenie z bazą danych
+require_once __DIR__ . '/config.php';
 
 class Session
 {
