@@ -3,9 +3,9 @@ include './header.php';
 require_once dirname(__DIR__) . '/utils/session.php';
 require_once dirname(__DIR__) . '/models/User.php';
 require_once dirname(__DIR__) . '/models/Points.php';
+require_once dirname(__DIR__) . '/utils/config.php';
 
 Session::start();
-$pdo = new PDO("mysql:host=localhost;dbname=staffmanager_db", "root", "");
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 $pointsModel = new Points($pdo);
